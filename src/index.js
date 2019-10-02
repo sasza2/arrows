@@ -1,6 +1,6 @@
 const xmlns = "http://www.w3.org/2000/svg"
 
-const Arrows = {
+export const Arrows = {
   createElement: (tagName, attributes, children) => {
     const node = document.createElementNS(xmlns, tagName)
     for(const key in attributes) node.setAttributeNS(null, key, attributes[key])
