@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const Arrows = {\n  createElement: (tagName, attributes, children) => {\n    const node = document.createElement(tagName);\n\n    for (const key in attributes) node.setAttribute(key, attributes[key]);\n\n    if (children instanceof Object) node.appendChild(children);else node.innerHTML = children;\n    return node;\n  }\n};\nconst test = Arrows.createElement(\"svg\", null, Arrows.createElement(\"path\", {\n  x: 5\n}));\nconsole.log(test);\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("const xmlns = \"http://www.w3.org/2000/svg\";\nconst Arrows = {\n  createElement: (tagName, attributes, children) => {\n    const node = document.createElementNS(xmlns, tagName);\n\n    for (const key in attributes) node.setAttributeNS(null, key, attributes[key]);\n\n    if (children) {\n      if (children instanceof Object) node.appendChild(children);else node.innerHTML = children;\n    }\n\n    return node;\n  }\n};\nconst test = Arrows.createElement(\"svg\", {\n  width: \"190\",\n  height: \"160\"\n}, Arrows.createElement(\"path\", {\n  d: \"M 10 10 C 20 20, 40 20, 50 10\",\n  stroke: \"black\",\n  fill: \"transparent\"\n}));\nwindow.addEventListener('load', () => {\n  document.body.appendChild(test);\n});\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ })
 
