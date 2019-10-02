@@ -14,13 +14,29 @@ const Arrows = {
   }
 }
 
-const test = (
-  <svg width="190" height="160">
-    <path d="M 10 10 C 20 20, 40 20, 50 10" stroke="black" fill="transparent"/>
-  </svg>
-)
+const arrow = ({ from, to }) => {
+  const paths = ['M']
 
+  const fromRect = from.getBoundingClientRect()
+  const toRect = to.getBoundingClientRect()
+  paths.push([fromRect.left, fromRect.top])
+  paths.push('C')
+  paths.push([fromRect.left, fromRect.top])
+  paths.push(',')
+  paths.push([toRect.left, toRect.top])
+  paths.push(',')
+  paths.push([toRect.left, toRect.top])
+
+  const test = (
+    <svg width="190" height="160">
+      <path d="M 10 10 C 20 20, 40 20, 50 10" stroke="black" fill="transparent"/>
+    </svg>
+  )
+}
 
 window.addEventListener('load', () => {
-  document.body.appendChild(test)
+  arrow({
+    from: document.getElementById('a'),
+    to: document.getElementById('b'),
+  })
 })
