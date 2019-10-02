@@ -1,9 +1,14 @@
+import flatten from 'lodash/flatten'
+
 const xmlns = "http://www.w3.org/2000/svg"
 
 export const Arrows = {
   createElement: (tagName, attributes, children) => {
     const node = document.createElementNS(xmlns, tagName)
-    for(const key in attributes) node.setAttributeNS(null, key, attributes[key])
+    for(const key in attributes){
+      const value = attributes[key]
+      node.setAttributeNS(null, key, value)
+    }
 
     if(children){
       if(children instanceof Object) node.appendChild(children)
@@ -27,11 +32,15 @@ const arrow = ({ from, to }) => {
   paths.push(',')
   paths.push([toRect.left, toRect.top])
 
-  const test = (
-    <svg width="190" height="160">
-      <path d="M 10 10 C 20 20, 40 20, 50 10" stroke="black" fill="transparent"/>
+  const pathAttribute = flatten(paths).join(' ').replace(/ ,/g, ',')
+
+  const node = (
+    <svg style={{ top: 100 }} width="650" height="400">
+      <path d={pathAttribute} stroke="black" fill="transparent"/>
     </svg>
   )
+
+  document.body.appendChild(node)
 }
 
 window.addEventListener('load', () => {
