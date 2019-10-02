@@ -1,13 +1,25 @@
 import flatten from 'lodash/flatten'
+import isNumber from 'lodash/isNumber'
 
 const xmlns = "http://www.w3.org/2000/svg"
 
 export const Arrows = {
+  createStyle: (value) => {
+    const style = Object.entries(value).reduce((prev, [key, value]) => {
+      if(isNumber(value)) return `${key}: ${value}px; ${prev}`
+      return `${key}: ${value}; ${prev}`
+    }, '')
+    return style.endsWith('; ') ? style.substring(0, style.length - 2) : style
+  },
+  createAttribute: (key, value) => {
+    if(key === 'style') return Arrows.createStyle(value)
+    return value
+  },
   createElement: (tagName, attributes, children) => {
     const node = document.createElementNS(xmlns, tagName)
     for(const key in attributes){
       const value = attributes[key]
-      node.setAttributeNS(null, key, value)
+      node.setAttributeNS(null, key, Arrows.createAttribute(key, value))
     }
 
     if(children){
@@ -35,7 +47,7 @@ const arrow = ({ from, to }) => {
   const pathAttribute = flatten(paths).join(' ').replace(/ ,/g, ',')
 
   const node = (
-    <svg style={{ top: 100 }} width="650" height="400">
+    <svg style={{ top: 50, left: 100, fill: '#123456' }} width="650" height="400">
       <path d={pathAttribute} stroke="black" fill="transparent"/>
     </svg>
   )
