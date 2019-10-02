@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const Arrows = {\n  createElement: () => {}\n};\nconst test = Arrows.createElement(\"svg\", null, \"-\");\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("const Arrows = {\n  createElement: (tagName, attributes, children) => {\n    const node = document.createElement(tagName);\n\n    for (const key in attributes) node.setAttribute(key, attributes[key]);\n\n    if (children instanceof Object) node.appendChild(children);else node.innerHTML = children;\n    return node;\n  }\n};\nconst test = Arrows.createElement(\"svg\", null, Arrows.createElement(\"path\", {\n  x: 5\n}));\nconsole.log(test);\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ })
 
