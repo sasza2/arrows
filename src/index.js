@@ -3,9 +3,10 @@ import { path, ends } from './path'
 import { DIRECTION } from './consts'
 
 const arrowSvg = ({ from, to }) => {
+  const arrow = path(from, to)
   const node = (
-    <svg style={{ top: 50, left: 100, fill: '#123456' }} width="650" height="400">
-      <path d={path(from, to)} stroke="black" fill="transparent"/>
+    <svg style={{ top: arrow.y, left: arrow.x, fill: '#123456', position: 'absolute' }} width="650" height="400">
+      <path d={arrow.points} stroke="black" fill="transparent"/>
     </svg>
   )
 

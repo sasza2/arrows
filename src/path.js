@@ -18,16 +18,33 @@ export const ends = (point) => ({
   ...positionXY(point)
 })
 
+const pathXY = (from, to) => ({
+  x: Math.min(from.x, to.x),
+  y: Math.min(from.y, to.y),
+})
+
+const createSVGPathList = (points) => {
+  const list = ['M']
+
+  list.push(points[0])
+  list.push('C')
+  list.push(points[0])
+  list.push(',')
+  list.push(points[1])
+  list.push(',')
+  list.push(points[1])
+
+  return flatten(list).join(' ').replace(/ ,/g, ',') 
+}
+
 export const path = (from, to) => {
-  const paths = ['M']
+  const start = pathXY(from, to)
+  const points = []
+  points.push([from.x - start.x, from.y - start.y])
+  points.push([to.x - start.x, to.y - start.y])
 
-  paths.push([from.x, from.y])
-  paths.push('C')
-  paths.push([from.x, from.y])
-  paths.push(',')
-  paths.push([to.x, to.y])
-  paths.push(',')
-  paths.push([to.x, to.y])
-
-  return flatten(paths).join(' ').replace(/ ,/g, ',')
+  return {
+    ...start,
+    points: createSVGPathList(points),
+  }
 }
