@@ -1,5 +1,6 @@
 import Element from './element'
-import { path, ends } from './path'
+import ends from './ends'
+import path from './path'
 import { DIRECTION } from './consts'
 
 const arrowSvg = ({ from, to }) => {
