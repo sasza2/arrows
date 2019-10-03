@@ -1,6 +1,9 @@
 import flatten from 'lodash/flatten'
 import isNumber from 'lodash/isNumber'
 
+import position from './position'
+import { DIRECTION } from './consts'
+
 const xmlns = "http://www.w3.org/2000/svg"
 
 export const Arrows = {
@@ -31,18 +34,16 @@ export const Arrows = {
   }
 }
 
-const arrow = ({ from, to }) => {
+const arrowSvg = ({ from, to }) => {
   const paths = ['M']
 
-  const fromRect = from.getBoundingClientRect()
-  const toRect = to.getBoundingClientRect()
-  paths.push([fromRect.left, fromRect.top])
+  paths.push([from.x, from.y])
   paths.push('C')
-  paths.push([fromRect.left, fromRect.top])
+  paths.push([from.x, from.y])
   paths.push(',')
-  paths.push([toRect.left, toRect.top])
+  paths.push([to.x, to.y])
   paths.push(',')
-  paths.push([toRect.left, toRect.top])
+  paths.push([to.x, to.y])
 
   const pathAttribute = flatten(paths).join(' ').replace(/ ,/g, ',')
 
@@ -55,9 +56,20 @@ const arrow = ({ from, to }) => {
   document.body.appendChild(node)
 }
 
+const arrow = ({ from, to }) => arrowSvg({
+  from: position(from),
+  to: position(to),
+})
+
 window.addEventListener('load', () => {
   arrow({
-    from: document.getElementById('a'),
-    to: document.getElementById('b'),
+    from: {
+      direction: DIRECTION.TOP,
+      node: document.getElementById('a'),
+    },
+    to: {
+      direction: DIRECTION.TOP,
+      node: document.getElementById('b'),
+    },
   })
 })
