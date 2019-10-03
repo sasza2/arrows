@@ -1,4 +1,4 @@
-import { DIRECTION } from './consts'
+import { DIRECTION } from '../consts'
 
 const endXY = (point) => {
   const rect = point.node.getBoundingClientRect()

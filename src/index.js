@@ -1,10 +1,10 @@
-import Element from './element'
-import ends from './ends'
-import path from './path'
+import Element from './jsx/element'
+import ends from './arrow/ends'
+import path from './arrow/path'
 import { DIRECTION } from './consts'
 
-const arrowSvg = ({ from, to }) => {
-  const arrow = path(from, to)
+const arrow = ({ from, to }) => {
+  const arrow = path(ends(from), ends(to))
   const node = (
     <svg style={{ top: arrow.y, left: arrow.x, fill: '#123456', position: 'absolute' }} width="650" height="400">
       <path d={arrow.points} stroke="black" fill="transparent"/>
@@ -13,11 +13,6 @@ const arrowSvg = ({ from, to }) => {
 
   document.body.appendChild(node)
 }
-
-const arrow = ({ from, to }) => arrowSvg({
-  from: ends(from),
-  to: ends(to),
-})
 
 window.addEventListener('load', () => {
   arrow({
