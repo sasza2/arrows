@@ -6,7 +6,7 @@ import { DIRECTION } from './consts'
 const arrow = ({ from, to }) => {
   const arrow = path(ends(from), ends(to))
   const node = (
-    <svg style={{ top: arrow.y, left: arrow.x, fill: '#123456', position: 'absolute' }} width="650" height="400">
+    <svg style={{ top: arrow.offset.y, left: arrow.offset.x, fill: '#123456', position: 'absolute' }} width="650" height="400">
       <path d={arrow.points} stroke="black" fill="transparent"/>
     </svg>
   )

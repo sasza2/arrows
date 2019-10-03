@@ -273,6 +273,30 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 
 /***/ }),
 
+/***/ "./src/arrow/ends.js":
+/*!***************************!*\
+  !*** ./src/arrow/ends.js ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../consts */ \"./src/consts.js\");\n\n\nconst endXY = point => {\n  const rect = point.node.getBoundingClientRect();\n\n  switch (point.direction) {\n    case _consts__WEBPACK_IMPORTED_MODULE_0__[\"DIRECTION\"].TOP:\n      return {\n        x: rect.x + rect.width / 2,\n        y: rect.y\n      };\n  }\n};\n\nconst ends = point => ({ ...point,\n  ...endXY(point)\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (ends);\n\n//# sourceURL=webpack:///./src/arrow/ends.js?");
+
+/***/ }),
+
+/***/ "./src/arrow/path.js":
+/*!***************************!*\
+  !*** ./src/arrow/path.js ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var lodash_flatten__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/flatten */ \"./node_modules/lodash/flatten.js\");\n/* harmony import */ var lodash_flatten__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_flatten__WEBPACK_IMPORTED_MODULE_0__);\n\n\nconst pathAbsolute = (point, offset) => ({ ...point,\n  x: point.x - offset.x,\n  y: point.y - offset.y\n});\n\nconst pathXY = (from, to) => ({\n  x: Math.min(from.x, to.x),\n  y: Math.min(from.y, to.y)\n});\n\nconst pathListSVG = points => {\n  const list = ['M'];\n  list.push(points[0]);\n  list.push('C');\n  list.push(points[0]);\n  list.push(',');\n  list.push(points[1]);\n  list.push(',');\n  list.push(points[1]);\n  return lodash_flatten__WEBPACK_IMPORTED_MODULE_0___default()(list).join(' ').replace(/ ,/g, ',');\n};\n\nconst pathOffset = ({\n  from,\n  to,\n  offset\n}) => {\n  const points = [];\n  points.push([from.x, from.y]);\n  points.push([to.x, to.y]);\n  return {\n    from,\n    to,\n    offset,\n    points: pathListSVG(points)\n  };\n};\n\nconst path = (from, to) => {\n  const offset = pathXY(from, to);\n  return pathOffset({\n    offset,\n    from: pathAbsolute(from, offset),\n    to: pathAbsolute(to, offset)\n  });\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (path);\n\n//# sourceURL=webpack:///./src/arrow/path.js?");
+
+/***/ }),
+
 /***/ "./src/consts.js":
 /*!***********************!*\
   !*** ./src/consts.js ***!
@@ -285,18 +309,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 
 /***/ }),
 
-/***/ "./src/element.js":
-/*!************************!*\
-  !*** ./src/element.js ***!
-  \************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var lodash_isNumber__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/isNumber */ \"./node_modules/lodash/isNumber.js\");\n/* harmony import */ var lodash_isNumber__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_isNumber__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var lodash_isObject__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/isObject */ \"./node_modules/lodash/isObject.js\");\n/* harmony import */ var lodash_isObject__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_isObject__WEBPACK_IMPORTED_MODULE_1__);\n\n\nconst XMLNS = \"http://www.w3.org/2000/svg\";\n\nconst createStyle = value => {\n  const style = Object.entries(value).reduce((prev, [key, value]) => {\n    if (lodash_isNumber__WEBPACK_IMPORTED_MODULE_0___default()(value)) return `${key}: ${value}px; ${prev}`;\n    return `${key}: ${value}; ${prev}`;\n  }, '');\n  return style.endsWith('; ') ? style.substring(0, style.length - 2) : style;\n};\n\nconst createAttribute = (key, value) => {\n  if (key === 'style') return createStyle(value);\n  return value;\n};\n\nconst create = (tagName, attributes, children) => {\n  const node = document.createElementNS(XMLNS, tagName);\n\n  for (const key in attributes) {\n    const value = attributes[key];\n    node.setAttributeNS(null, key, createAttribute(key, value));\n  }\n\n  if (children) {\n    if (lodash_isObject__WEBPACK_IMPORTED_MODULE_1___default()(children)) node.appendChild(children);else node.innerHTML = children;\n  }\n\n  return node;\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  create\n});\n\n//# sourceURL=webpack:///./src/element.js?");
-
-/***/ }),
-
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -305,19 +317,19 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var loda
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./element */ \"./src/element.js\");\n/* harmony import */ var _path__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./path */ \"./src/path.js\");\n/* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./consts */ \"./src/consts.js\");\n\n\n\n\nconst arrowSvg = ({\n  from,\n  to\n}) => {\n  const arrow = Object(_path__WEBPACK_IMPORTED_MODULE_1__[\"path\"])(from, to);\n  const node = _element__WEBPACK_IMPORTED_MODULE_0__[\"default\"].create(\"svg\", {\n    style: {\n      top: arrow.y,\n      left: arrow.x,\n      fill: '#123456',\n      position: 'absolute'\n    },\n    width: \"650\",\n    height: \"400\"\n  }, _element__WEBPACK_IMPORTED_MODULE_0__[\"default\"].create(\"path\", {\n    d: arrow.points,\n    stroke: \"black\",\n    fill: \"transparent\"\n  }));\n  document.body.appendChild(node);\n};\n\nconst arrow = ({\n  from,\n  to\n}) => arrowSvg({\n  from: Object(_path__WEBPACK_IMPORTED_MODULE_1__[\"ends\"])(from),\n  to: Object(_path__WEBPACK_IMPORTED_MODULE_1__[\"ends\"])(to)\n});\n\nwindow.addEventListener('load', () => {\n  arrow({\n    from: {\n      direction: _consts__WEBPACK_IMPORTED_MODULE_2__[\"DIRECTION\"].TOP,\n      node: document.getElementById('a')\n    },\n    to: {\n      direction: _consts__WEBPACK_IMPORTED_MODULE_2__[\"DIRECTION\"].TOP,\n      node: document.getElementById('b')\n    }\n  });\n});\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _jsx_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./jsx/element */ \"./src/jsx/element.js\");\n/* harmony import */ var _arrow_ends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./arrow/ends */ \"./src/arrow/ends.js\");\n/* harmony import */ var _arrow_path__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./arrow/path */ \"./src/arrow/path.js\");\n/* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./consts */ \"./src/consts.js\");\n\n\n\n\n\nconst arrow = ({\n  from,\n  to\n}) => {\n  const arrow = Object(_arrow_path__WEBPACK_IMPORTED_MODULE_2__[\"default\"])(Object(_arrow_ends__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(from), Object(_arrow_ends__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(to));\n  const node = _jsx_element__WEBPACK_IMPORTED_MODULE_0__[\"default\"].create(\"svg\", {\n    style: {\n      top: arrow.offset.y,\n      left: arrow.offset.x,\n      fill: '#123456',\n      position: 'absolute'\n    },\n    width: \"650\",\n    height: \"400\"\n  }, _jsx_element__WEBPACK_IMPORTED_MODULE_0__[\"default\"].create(\"path\", {\n    d: arrow.points,\n    stroke: \"black\",\n    fill: \"transparent\"\n  }));\n  document.body.appendChild(node);\n};\n\nwindow.addEventListener('load', () => {\n  arrow({\n    from: {\n      direction: _consts__WEBPACK_IMPORTED_MODULE_3__[\"DIRECTION\"].TOP,\n      node: document.getElementById('a')\n    },\n    to: {\n      direction: _consts__WEBPACK_IMPORTED_MODULE_3__[\"DIRECTION\"].TOP,\n      node: document.getElementById('b')\n    }\n  });\n});\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
-/***/ "./src/path.js":
-/*!*********************!*\
-  !*** ./src/path.js ***!
-  \*********************/
-/*! exports provided: ends, path */
+/***/ "./src/jsx/element.js":
+/*!****************************!*\
+  !*** ./src/jsx/element.js ***!
+  \****************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"ends\", function() { return ends; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"path\", function() { return path; });\n/* harmony import */ var lodash_flatten__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/flatten */ \"./node_modules/lodash/flatten.js\");\n/* harmony import */ var lodash_flatten__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_flatten__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./consts */ \"./src/consts.js\");\n\n\n\nconst positionXY = point => {\n  const rect = point.node.getBoundingClientRect();\n\n  switch (point.direction) {\n    case _consts__WEBPACK_IMPORTED_MODULE_1__[\"DIRECTION\"].TOP:\n      return {\n        x: rect.x + rect.width / 2,\n        y: rect.y\n      };\n  }\n};\n\nconst ends = point => ({ ...point,\n  ...positionXY(point)\n});\n\nconst pathXY = (from, to) => ({\n  x: Math.min(from.x, to.x),\n  y: Math.min(from.y, to.y)\n});\n\nconst createSVGPathList = points => {\n  const list = ['M'];\n  list.push(points[0]);\n  list.push('C');\n  list.push(points[0]);\n  list.push(',');\n  list.push(points[1]);\n  list.push(',');\n  list.push(points[1]);\n  return lodash_flatten__WEBPACK_IMPORTED_MODULE_0___default()(list).join(' ').replace(/ ,/g, ',');\n};\n\nconst path = (from, to) => {\n  const start = pathXY(from, to);\n  const points = [];\n  points.push([from.x - start.x, from.y - start.y]);\n  points.push([to.x - start.x, to.y - start.y]);\n  return { ...start,\n    points: createSVGPathList(points)\n  };\n};\n\n//# sourceURL=webpack:///./src/path.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var lodash_isNumber__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/isNumber */ \"./node_modules/lodash/isNumber.js\");\n/* harmony import */ var lodash_isNumber__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_isNumber__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var lodash_isObject__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/isObject */ \"./node_modules/lodash/isObject.js\");\n/* harmony import */ var lodash_isObject__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_isObject__WEBPACK_IMPORTED_MODULE_1__);\n\n\nconst XMLNS = \"http://www.w3.org/2000/svg\";\n\nconst createStyle = value => {\n  const style = Object.entries(value).reduce((prev, [key, value]) => {\n    if (lodash_isNumber__WEBPACK_IMPORTED_MODULE_0___default()(value)) return `${key}: ${value}px; ${prev}`;\n    return `${key}: ${value}; ${prev}`;\n  }, '');\n  return style.endsWith('; ') ? style.substring(0, style.length - 2) : style;\n};\n\nconst createAttribute = (key, value) => {\n  if (key === 'style') return createStyle(value);\n  return value;\n};\n\nconst create = (tagName, attributes, children) => {\n  const node = document.createElementNS(XMLNS, tagName);\n\n  for (const key in attributes) {\n    const value = attributes[key];\n    node.setAttributeNS(null, key, createAttribute(key, value));\n  }\n\n  if (children) {\n    if (lodash_isObject__WEBPACK_IMPORTED_MODULE_1___default()(children)) node.appendChild(children);else node.innerHTML = children;\n  }\n\n  return node;\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  create\n});\n\n//# sourceURL=webpack:///./src/jsx/element.js?");
 
 /***/ })
 

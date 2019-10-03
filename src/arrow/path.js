@@ -1,5 +1,11 @@
 import flatten from 'lodash/flatten'
 
+const pathAbsolute = (point, offset) => ({
+  ...point,
+  x: point.x - offset.x,
+  y: point.y - offset.y,
+})
+
 const pathXY = (from, to) => ({
   x: Math.min(from.x, to.x),
   y: Math.min(from.y, to.y),
@@ -19,16 +25,26 @@ const pathListSVG = (points) => {
   return flatten(list).join(' ').replace(/ ,/g, ',') 
 }
 
-const path = (from, to) => {
-  const start = pathXY(from, to)
+const pathOffset = ({ from, to, offset }) => {
   const points = []
-  points.push([from.x - start.x, from.y - start.y])
-  points.push([to.x - start.x, to.y - start.y])
+  points.push([from.x, from.y])
+  points.push([to.x, to.y])
 
   return {
-    ...start,
+    from,
+    to,
+    offset,
     points: pathListSVG(points),
   }
+}
+
+const path = (from, to) => {
+  const offset = pathXY(from, to)
+  return pathOffset({
+    offset,
+    from: pathAbsolute(from, offset),
+    to: pathAbsolute(to, offset),
+  })
 }
 
 export default path
