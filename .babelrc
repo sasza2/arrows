@@ -3,7 +3,7 @@
     [
       "transform-react-jsx",
       {
-        "pragma": "Arrows.createElement"
+        "pragma": "Element.create"
       }
     ]
   ]
