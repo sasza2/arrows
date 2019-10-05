@@ -1,5 +1,7 @@
 import flatten from 'lodash/flatten'
 
+import { pointToArray, pointBezier } from './point'
+
 const pathAbsolute = (point, offset) => ({
   ...point,
   x: point.x - offset.x,
@@ -10,11 +12,6 @@ const pathXY = (from, to) => ({
   x: Math.min(from.x, to.x),
   y: Math.min(from.y, to.y),
 })
-
-const pointToArray = (point) => ([
-  point.x,
-  point.y,
-])
 
 const pathListSVG = (points) => {
   const list = ['M']
@@ -41,11 +38,6 @@ const pathViewportAll = (points) => points.reduce((prev, curr) => {
 const pathViewportFromAndTo = (from, to) => ({
   width: Math.max(from.x, to.x),
   height: Math.max(from.y, to.y),
-})
-
-const pointBezier = (point, viewport) => ({
-  x: point.x + viewport.width * point.translation[0],
-  y: point.y + viewport.height * point.translation[1],
 })
 
 const pathListBezier = (from, to) => {

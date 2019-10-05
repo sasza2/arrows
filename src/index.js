@@ -19,12 +19,12 @@ window.addEventListener('load', () => {
     from: {
       direction: DIRECTION.TOP,
       node: document.getElementById('a'),
-      translation: [1, -1],
+      translation: [-0.5, -1],
     },
     to: {
       direction: DIRECTION.TOP,
       node: document.getElementById('b'),
-      translation: [1, 1]
+      translation: [-0.5, 1]
     },
   })
 })
