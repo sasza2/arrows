@@ -21,35 +21,72 @@ const pathListSVG = (points) => {
 
   list.push(pointToArray(points[0]))
   list.push('C')
-  list.push(pointToArray(points[0]))
-  list.push(',')
   list.push(pointToArray(points[1]))
   list.push(',')
-  list.push(pointToArray(points[1]))
+  list.push(pointToArray(points[2]))
+  list.push(',')
+  list.push(pointToArray(points[3]))
 
   return flatten(list).join(' ').replace(/ ,/g, ',') 
 }
 
-const pathOffset = ({ from, to, offset }) => {
+const pathViewportAll = (points) => points.reduce((prev, curr) => {
+  if(!prev) return curr
+  return {
+    x: Math.max(prev.x, curr.x),
+    y: Math.max(prev.y, curr.y),
+  }
+})
+
+const pathViewportFromAndTo = (from, to) => ({
+  width: Math.max(from.x, to.x),
+  height: Math.max(from.y, to.y),
+})
+
+const pointBezier = (point, viewport) => ({
+  x: point.x + viewport.width * point.translation[0],
+  y: point.y + viewport.height * point.translation[1],
+})
+
+const pathListBezier = (from, to) => {
+  const viewport = pathViewportFromAndTo(from, to)
+  
   const points = []
   points.push(from)
+  points.push(pointBezier(from, viewport))
+  points.push(pointBezier(to, viewport))
   points.push(to)
+  
+  const min = points.reduce((prev, curr) => {
+    if(!prev) return curr
+    return {
+      x: Math.min(prev.x, curr.x),
+      y: Math.min(prev.y, curr.y),
+    }
+  })
 
-  return {
-    from,
-    to,
-    offset,
-    points: pathListSVG(points),
-  }
+  const pointsWithBezier = points.map(point => ({
+    ...points,
+    x: point.x - min.x,
+    y: point.y - min.y,
+  }))
+
+  return pointsWithBezier
 }
 
 const path = (from, to) => {
   const offset = pathXY(from, to)
-  return pathOffset({
-    offset,
-    from: pathAbsolute(from, offset),
-    to: pathAbsolute(to, offset),
-  })
+
+  const points = pathListBezier(pathAbsolute(from, offset), pathAbsolute(to, offset))
+  
+  return {
+    offset: {
+      x: offset.x - points[0].x,
+      y: offset.y - points[0].y,
+    },
+    size: pathViewportAll(points),
+    points: pathListSVG(points),
+  }
 }
 
 export default path
