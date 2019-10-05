@@ -11,24 +11,29 @@ const pathXY = (from, to) => ({
   y: Math.min(from.y, to.y),
 })
 
+const pointToArray = (point) => ([
+  point.x,
+  point.y,
+])
+
 const pathListSVG = (points) => {
   const list = ['M']
 
-  list.push(points[0])
+  list.push(pointToArray(points[0]))
   list.push('C')
-  list.push(points[0])
+  list.push(pointToArray(points[0]))
   list.push(',')
-  list.push(points[1])
+  list.push(pointToArray(points[1]))
   list.push(',')
-  list.push(points[1])
+  list.push(pointToArray(points[1]))
 
   return flatten(list).join(' ').replace(/ ,/g, ',') 
 }
 
 const pathOffset = ({ from, to, offset }) => {
   const points = []
-  points.push([from.x, from.y])
-  points.push([to.x, to.y])
+  points.push(from)
+  points.push(to)
 
   return {
     from,
