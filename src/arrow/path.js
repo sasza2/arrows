@@ -37,6 +37,19 @@ const pathReducer = (points, reducer) => points.reduce((prev, curr) => {
   return reducer(prev, curr)
 })
 
+const pathMinusTopLeftPoint = (points) => {
+  const min = pathReducer(points, (prev, curr) => ({
+    x: Math.min(prev.x, curr.x),
+    y: Math.min(prev.y, curr.y),
+  }))
+
+  return points.map(point => ({
+    ...points,
+    x: point.x - min.x,
+    y: point.y - min.y,
+  }))
+}
+
 const pathListBezier = (from, to) => {
   const viewport = pathViewportFromAndTo(from, to)
   
@@ -46,18 +59,7 @@ const pathListBezier = (from, to) => {
   points.push(pointBezier(to, viewport))
   points.push(to)
   
-  const min = pathReducer(points, (prev, curr) => ({
-    x: Math.min(prev.x, curr.x),
-    y: Math.min(prev.y, curr.y),
-  }))
-
-  const pointsWithBezier = points.map(point => ({
-    ...points,
-    x: point.x - min.x,
-    y: point.y - min.y,
-  }))
-
-  return pointsWithBezier
+  return pathMinusTopLeftPoint(points)
 }
 
 const path = (from, to) => {
