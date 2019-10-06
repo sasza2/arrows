@@ -1,4 +1,12 @@
-import { pathAbsolute, pathListSVG } from './path'
+import { DIRECTION } from '../consts'
+import ends from './ends'
+import path, { pathAbsolute, pathListSVG } from './path'
+
+const mockHtmlElement = ({ x, y, width, height }) => ({
+  getBoundingClientRect: () => ({
+    x, y, width, height
+  })
+})
 
 test('check pathAbsolute', () => {
   const point = {
@@ -58,4 +66,35 @@ test('check pathListSVG', () => {
   ]
 
   expect(pathListSVG(points)).toBe('M 80 10 C 90 30, 90 60, 150 300')
+})
+
+test('path', () => {
+  const from = {
+    direction: DIRECTION.TOP,
+    node: mockHtmlElement({
+      x: 100,
+      y: 50,
+      width: 5,
+      height: 5,
+    }),
+    translation: [-0.5, -1],
+  }
+  const to = {
+    direction: DIRECTION.TOP,
+    node: mockHtmlElement({
+      x: 750,
+      y: 450,
+      width: 5,
+      height: 5,
+    }),
+    translation: [-0.4, 1]
+  }
+
+  const expected = {
+    offset: { x: -222.5, y: -350 },
+    size: { x: 975, y: 1200 },
+    points: 'M 325 400 C 0 0, 715 1200, 975 800'
+  }
+
+  expect(path(ends(from), ends(to))).toStrictEqual(expected)
 })
