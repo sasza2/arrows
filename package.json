@@ -19,6 +19,7 @@
   "homepage": "https://github.com/sasza2/arrows#readme",
   "devDependencies": {
     "@babel/core": "^7.6.2",
+    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "jest": "^24.9.0",

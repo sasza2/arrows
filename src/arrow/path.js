@@ -2,7 +2,7 @@ import flatten from 'lodash/flatten'
 
 import { pointToArray, pointBezier } from './point'
 
-const pathAbsolute = (point, offset) => ({
+export const pathAbsolute = (point, offset) => ({
   ...point,
   x: point.x - offset.x,
   y: point.y - offset.y,
