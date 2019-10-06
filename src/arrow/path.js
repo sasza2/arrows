@@ -13,7 +13,7 @@ const pathXY = (from, to) => ({
   y: Math.min(from.y, to.y),
 })
 
-const pathListSVG = (points) => {
+export const pathListSVG = (points) => {
   const list = ['M']
 
   list.push(pointToArray(points[0]))
