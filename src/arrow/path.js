@@ -27,17 +27,14 @@ export const pathListSVG = (points) => {
   return flatten(list).join(' ').replace(/ ,/g, ',') 
 }
 
-const pathViewportAll = (points) => points.reduce((prev, curr) => {
-  if(!prev) return curr
-  return {
-    x: Math.max(prev.x, curr.x),
-    y: Math.max(prev.y, curr.y),
-  }
-})
-
 const pathViewportFromAndTo = (from, to) => ({
   width: Math.max(from.x, to.x),
   height: Math.max(from.y, to.y),
+})
+
+const pathReducer = (points, reducer) => points.reduce((prev, curr) => {
+  if (!prev) return curr
+  return reducer(prev, curr)
 })
 
 const pathListBezier = (from, to) => {
@@ -49,13 +46,10 @@ const pathListBezier = (from, to) => {
   points.push(pointBezier(to, viewport))
   points.push(to)
   
-  const min = points.reduce((prev, curr) => {
-    if(!prev) return curr
-    return {
-      x: Math.min(prev.x, curr.x),
-      y: Math.min(prev.y, curr.y),
-    }
-  })
+  const min = pathReducer(points, (prev, curr) => ({
+    x: Math.min(prev.x, curr.x),
+    y: Math.min(prev.y, curr.y),
+  }))
 
   const pointsWithBezier = points.map(point => ({
     ...points,
@@ -76,7 +70,10 @@ const path = (from, to) => {
       x: offset.x - points[0].x,
       y: offset.y - points[0].y,
     },
-    size: pathViewportAll(points),
+    size: pathReducer(points, (prev, curr) => ({
+      x: Math.max(prev.x, curr.x),
+      y: Math.max(prev.y, curr.y),
+    })),
     points: pathListSVG(points),
   }
 }
