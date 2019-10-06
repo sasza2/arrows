@@ -24,7 +24,7 @@ window.addEventListener('load', () => {
     to: {
       direction: DIRECTION.TOP,
       node: document.getElementById('b'),
-      translation: [-0.5, 1]
+      translation: [-0.4, 1]
     },
   })
 })

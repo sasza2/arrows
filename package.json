@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode=development",
+    "start": "webpack --mode=development --watch",
     "test": "jest"
   },
   "repository": {
