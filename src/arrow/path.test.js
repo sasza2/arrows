@@ -2,11 +2,7 @@ import { DIRECTION } from '../consts'
 import ends from './ends'
 import path, { pathAbsolute, pathListSVG } from './path'
 
-const mockHtmlElement = ({ x, y, width, height }) => ({
-  getBoundingClientRect: () => ({
-    x, y, width, height
-  })
-})
+import Element from '../jsx/element'
 
 test('check pathAbsolute', () => {
   const point = {
@@ -71,7 +67,7 @@ test('check pathListSVG', () => {
 test('path', () => {
   const from = {
     direction: DIRECTION.TOP,
-    node: mockHtmlElement({
+    node: Element.fake({
       x: 100,
       y: 50,
       width: 5,
@@ -81,7 +77,7 @@ test('path', () => {
   }
   const to = {
     direction: DIRECTION.TOP,
-    node: mockHtmlElement({
+    node: Element.fake({
       x: 750,
       y: 450,
       width: 5,

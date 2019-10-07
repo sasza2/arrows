@@ -31,6 +31,14 @@ const create = (tagName, attributes, children) => {
   return node
 }
 
+// Only for testing
+const fake = ({ x, y, width, height }) => ({
+  getBoundingClientRect: () => ({
+    x, y, width, height
+  })
+})
+
 export default {
   create,
+  fake,
 }
