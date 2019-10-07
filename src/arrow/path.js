@@ -44,7 +44,7 @@ const pathSubstractStartPosition = (points) => {
   }))
 
   return points.map(point => ({
-    ...points,
+    ...point,
     x: point.x - min.x,
     y: point.y - min.y,
   }))
