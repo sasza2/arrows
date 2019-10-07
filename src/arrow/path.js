@@ -2,13 +2,13 @@ import flatten from 'lodash/flatten'
 
 import { pointToArray, pointBezier } from './point'
 
-export const pathAbsolute = (point, offset) => ({
+export const pointAbsolute = (point, offset) => ({
   ...point,
   x: point.x - offset.x,
   y: point.y - offset.y,
 })
 
-const pathXY = (from, to) => ({
+const startPosition = (from, to) => ({
   x: Math.min(from.x, to.x),
   y: Math.min(from.y, to.y),
 })
@@ -63,9 +63,8 @@ const pathListBezier = (from, to) => {
 }
 
 const path = (from, to) => {
-  const offset = pathXY(from, to)
-
-  const points = pathListBezier(pathAbsolute(from, offset), pathAbsolute(to, offset))
+  const offset = startPosition(from, to)
+  const points = pathListBezier(pointAbsolute(from, offset), pointAbsolute(to, offset))
   
   return {
     offset: {

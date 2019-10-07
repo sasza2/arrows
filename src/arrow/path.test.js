@@ -1,10 +1,10 @@
 import { DIRECTION } from '../consts'
 import ends from './ends'
-import path, { pathAbsolute, pathListSVG } from './path'
+import path, { pathListSVG, pointAbsolute } from './path'
 
 import Element from '../jsx/element'
 
-test('check pathAbsolute', () => {
+test('check pointAbsolute', () => {
   const point = {
     x: 100,
     y: 100,
@@ -20,10 +20,10 @@ test('check pathAbsolute', () => {
     y: 60,
   }
 
-  expect(pathAbsolute(point, offset)).toStrictEqual(expected)
+  expect(pointAbsolute(point, offset)).toStrictEqual(expected)
 })
 
-test('check pathAbsolute with extra props', () => {
+test('check pointAbsolute with extra props', () => {
   const point = {
     x: 150,
     y: 1600,
@@ -41,7 +41,7 @@ test('check pathAbsolute with extra props', () => {
     translation: [1, -1],
   }
 
-  expect(pathAbsolute(point, offset)).toStrictEqual(expected)
+  expect(pointAbsolute(point, offset)).toStrictEqual(expected)
 })
 
 test('check pathListSVG', () => {
