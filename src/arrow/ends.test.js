@@ -16,4 +16,17 @@ test('check ends top', () => {
 
   let end = ends(point)
   expect(end).toMatchObject({ x: 775, y: 450 })
+
+  point = {
+    node: Element.fake({
+      x: 300,
+      y: 200,
+      width: 400,
+      height: 90,
+    }),
+    direction: DIRECTION.TOP,
+  }
+
+  end = ends(point)
+  expect(end).toMatchObject({ x: 500, y: 200 })
 })
