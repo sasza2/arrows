@@ -8,6 +8,8 @@ const endXY = (point) => {
         x: rect.x + rect.width / 2,
         y: rect.y,
       };
+    default:
+      throw new Error('unexpected type');
   }
 };
 

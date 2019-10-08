@@ -6,6 +6,7 @@
     "test": false
   },
   "rules": {
-    "func-names": ["error", "never"]
+    "func-names": ["error", "never"],
+    "import/prefer-default-export": 0
   }
 }
