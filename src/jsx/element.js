@@ -3,8 +3,8 @@ import isObject from 'lodash/isObject';
 
 const XMLNS = 'http://www.w3.org/2000/svg';
 
-const createStyle = (value) => {
-  const style = Object.entries(value).reduce((prev, [key, value]) => {
+const createStyle = (attribute) => {
+  const style = Object.entries(attribute).reduce((prev, [key, value]) => {
     if (isNumber(value)) return `${key}: ${value}px; ${prev}`;
     return `${key}: ${value}; ${prev}`;
   }, '');
@@ -18,10 +18,9 @@ const createAttribute = (key, value) => {
 
 const create = (tagName, attributes, children) => {
   const node = document.createElementNS(XMLNS, tagName);
-  for (const key in attributes) {
-    const value = attributes[key];
+  Object.entries(attributes).forEach(([key, value]) => {
     node.setAttributeNS(null, key, createAttribute(key, value));
-  }
+  });
 
   if (children) {
     if (isObject(children)) node.appendChild(children);

@@ -3,7 +3,7 @@ import ends from './arrow/ends';
 import path from './arrow/path';
 import { DIRECTION } from './consts';
 
-const arrow = ({ from, to }) => {
+const arrowCreate = ({ from, to }) => {
   const arrow = path(ends(from), ends(to));
   const node = (
     <svg style={{
@@ -17,7 +17,7 @@ const arrow = ({ from, to }) => {
 };
 
 window.addEventListener('load', () => {
-  arrow({
+  arrowCreate({
     from: {
       direction: DIRECTION.TOP,
       node: document.getElementById('a'),
