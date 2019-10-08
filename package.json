@@ -17,6 +17,11 @@
   "bugs": {
     "url": "https://github.com/sasza2/arrows/issues"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint ; npm run test"
+    }
+  },
   "homepage": "https://github.com/sasza2/arrows#readme",
   "devDependencies": {
     "@babel/core": "^7.6.2",
