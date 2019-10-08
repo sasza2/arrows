@@ -3,10 +3,18 @@
   "globals": {
     "document": false,
     "expect": false,
-    "test": false
+    "test": false,
+    "window": false
   },
+  "parser": "babel-eslint",
   "rules": {
     "func-names": ["error", "never"],
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+    "no-unused-vars": [
+      "error",
+      {
+          "varsIgnorePattern": "Element"
+      }
+    ]
   }
 }
