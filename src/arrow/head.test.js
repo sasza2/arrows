@@ -37,7 +37,7 @@ test('check headBezierAngle', () => {
       x: 401,
       y: 550,
     },
-  ])
+  ]);
 
   expect(angle).toStrictEqual({ degree: 37.586, radius: 0.656 });
 });
