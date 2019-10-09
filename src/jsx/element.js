@@ -16,15 +16,17 @@ const createAttribute = (key, value) => {
   return value;
 };
 
-const create = (tagName, attributes, children) => {
+const create = (tagName, attributes, ...children) => {
   const node = document.createElementNS(XMLNS, tagName);
   Object.entries(attributes).forEach(([key, value]) => {
     node.setAttributeNS(null, key, createAttribute(key, value));
   });
 
-  if (children) {
-    if (isObject(children)) node.appendChild(children);
-    else node.innerHTML = children;
+  if (children.length) {
+    children.forEach((child) => {
+      if (isObject(child)) node.appendChild(child);
+      else node.innerHTML = children;
+    });
   }
 
   return node;

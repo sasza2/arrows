@@ -1,6 +1,7 @@
 import flatten from 'lodash/flatten';
 
 import { pointToArray, pointBezier } from './point';
+import { headBezierAngle, headBezierXY } from './head';
 
 export const pointAbsolute = (point, offset) => ({
   ...point,
@@ -76,6 +77,10 @@ const path = (from, to) => {
       y: Math.max(prev.y, curr.y),
     })),
     points: pathListSVG(points),
+    head: {
+      angle: headBezierAngle(1, points),
+      ...headBezierXY(1, points),
+    },
   };
 };
 

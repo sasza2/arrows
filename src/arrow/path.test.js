@@ -90,6 +90,11 @@ test('path', () => {
     offset: { x: -222.5, y: -350 },
     size: { x: 975, y: 1200 },
     points: 'M 325 400 C 0 0, 715 1200, 975 800',
+    head: {
+      angle: -0.9944211062037129,
+      x: 975,
+      y: 800,
+    },
   };
 
   expect(path(ends(from), ends(to))).toStrictEqual(expected);
