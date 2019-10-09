@@ -1,7 +1,7 @@
 import { headBezierAngle } from './head';
 
 test('check headBezierAngle', () => {
-  let angle = Math.floor((headBezierAngle(1, [
+  let angle = headBezierAngle(1, [
     {
       x: 10,
       y: 20,
@@ -17,11 +17,11 @@ test('check headBezierAngle', () => {
       x: 201,
       y: 250,
     },
-  ])) * 10000);
+  ]);
 
-  expect(angle).toBe(7659);
+  expect(angle).toStrictEqual({ degree: 43.889, radius: 0.766 });
 
-  angle = Math.floor((headBezierAngle(1, [
+  angle = headBezierAngle(1, [
     {
       x: 80,
       y: 40,
@@ -37,7 +37,7 @@ test('check headBezierAngle', () => {
       x: 401,
       y: 550,
     },
-  ])) * 10000);
+  ])
 
-  expect(angle).toBe(6562);
+  expect(angle).toStrictEqual({ degree: 37.586, radius: 0.656 });
 });

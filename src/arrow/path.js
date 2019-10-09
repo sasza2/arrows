@@ -78,7 +78,7 @@ const path = (from, to) => {
     })),
     points: pathListSVG(points),
     head: {
-      angle: headBezierAngle(1, points),
+      ...headBezierAngle(1, points),
       ...headBezierXY(1, points),
     },
   };

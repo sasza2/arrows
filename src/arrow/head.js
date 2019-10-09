@@ -1,8 +1,20 @@
 /* eslint-disable */
+
+const PRECISION = 1000.0
+
+const round = value => Math.round(value * PRECISION) / PRECISION
+
 export const headBezierAngle = (t, points) => {
   const dx = ((1 - t) ** 2) * (points[1].x - points[0].x) + 2 * t * (1 - t) * (points[2].x - points[1].x) + t * t * (points[3].x - points[2].x);
   const dy = ((1 - t) ** 2) * (points[1].y - points[0].y) + 2 * t * (1 - t) * (points[2].y - points[1].y) + t * t * (points[3].y - points[2].y);
-  return -Math.atan2(dx, dy) + 0.5 * Math.PI;
+  
+  const radius = round(-Math.atan2(dx, dy) + 0.5 * Math.PI)
+  const degree = round(radius * (180 / Math.PI))
+
+  return {
+    degree,
+    radius,
+  }
 };
 
 export const headBezierXY = (t, points) => ({
