@@ -16,10 +16,19 @@ const createAttribute = (key, value) => {
   return value;
 };
 
+const attributeName = (name) => {
+  switch (name) {
+    case 'className':
+      return 'class';
+    default:
+      return name;
+  }
+};
+
 const create = (tagName, attributes, ...children) => {
   const node = document.createElementNS(XMLNS, tagName);
   Object.entries(attributes).forEach(([key, value]) => {
-    node.setAttributeNS(null, key, createAttribute(key, value));
+    node.setAttributeNS(null, attributeName(key), createAttribute(key, value));
   });
 
   if (children.length) {

@@ -1,5 +1,6 @@
 window.addEventListener('load', function(){
   const arrowProps = {
+    className: 'arrow',
     from: {
       point: {
         x: 50,
