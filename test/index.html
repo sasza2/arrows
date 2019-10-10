@@ -2,41 +2,14 @@
 <html>
   <head>
     <script src="./../dist/main.js"></script>
-    <script>
-      const arrowProps = {
-        pointA: {
-          
-        },
-        from: {
-          direction: 'top',
-          translation: [-0.5, -1],
-        },
-        to: {
-          direction: 'top',
-          translation: [0.9, 1],
-        },
-      }
-
-      window.addEventListener('load', function(){
-        console.log(document.querySelector('textarea'))
-        document.querySelector('textarea').value = JSON.stringify(arrowProps, null, 2)
-      })
-    </script>
+    <script src="./app.js"></script>
     <style>
-      #a, #b {
+      #from, #to {
         position: absolute;
         width: 5px;
         height: 5px;
         font-size: 0px;
         background-color: red;
-      }
-      #a {
-        top: 50px;
-        left: 100px
-      }
-      #b {
-        top: 350px;
-        left: 750px;
       }
       textarea {
         width: 400px;
@@ -45,10 +18,12 @@
     </style>
   </head>
   <body>
-    <div id="a"></div>
-    <div id="b"></div>
+    <div id="from"></div>
+    <div id="to"></div>
     <form>
       <textarea></textarea>
+      <br />
+      <button type='button'>update</button>
     </form>
   </body>
 </html>

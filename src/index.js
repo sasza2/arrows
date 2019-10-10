@@ -1,7 +1,6 @@
 import Element from './jsx/element';
 import ends from './arrow/ends';
 import path from './arrow/path';
-import { DIRECTION } from './consts';
 
 const arrowCreate = ({ from, to }) => {
   const arrow = path(ends(from), ends(to));
@@ -24,20 +23,9 @@ const arrowCreate = ({ from, to }) => {
     </svg>
   );
 
-  document.body.appendChild(node);
+  return node;
 };
 
-window.addEventListener('load', () => {
-  arrowCreate({
-    from: {
-      direction: DIRECTION.TOP,
-      node: document.getElementById('a'),
-      translation: [-0.5, -1],
-    },
-    to: {
-      direction: DIRECTION.TOP,
-      node: document.getElementById('b'),
-      translation: [0.9, 1],
-    },
-  });
-});
+if (window) window.arrowCreate = arrowCreate;
+
+export default arrowCreate;
