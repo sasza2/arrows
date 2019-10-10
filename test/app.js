@@ -19,18 +19,18 @@ window.addEventListener('load', function(){
     },
   }
 
-  var nodes = {
+  const nodes = {
     from: document.getElementById('from'),
     to: document.getElementById('to')
   }
 
-  var textarea = document.querySelector('textarea')
-  var button = document.querySelector('button')
+  const textarea = document.querySelector('textarea')
+  const button = document.querySelector('button')
 
-  var arrow = null
+  let arrow = null
   
   function update(){
-    var arrowProps = JSON.parse(textarea.value)
+    const arrowProps = JSON.parse(textarea.value)
     arrowProps.from.node = nodes.from
     arrowProps.to.node = nodes.to
 
