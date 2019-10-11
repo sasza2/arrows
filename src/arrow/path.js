@@ -5,8 +5,8 @@ import { headBezierAngle, headBezierXY } from './head';
 
 export const pointAbsolute = (point, offset) => ({
   ...point,
-  x: point.x - offset.x,
-  y: point.y - offset.y,
+  x: point.x - offset.x + 10,
+  y: point.y - offset.y + 10,
 });
 
 const startPosition = (from, to) => ({
@@ -69,12 +69,12 @@ const path = (from, to) => {
 
   return {
     offset: {
-      x: offset.x - points[0].x,
-      y: offset.y - points[0].y,
+      x: offset.x - Math.min(points[0].x - 10, points[3].x - 10) - 10,
+      y: offset.y - Math.min(points[0].y - 10, points[3].y - 10) - 10,
     },
     size: pathReducer(points, (prev, curr) => ({
-      x: Math.max(prev.x, curr.x),
-      y: Math.max(prev.y, curr.y),
+      x: Math.max(prev.x, curr.x) + 20,
+      y: Math.max(prev.y, curr.y) + 20,
     })),
     points: pathListSVG(points),
     head: {
