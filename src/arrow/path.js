@@ -1,13 +1,23 @@
 import flatten from 'lodash/flatten';
 
+import { ARROW_HEAD_SIZE } from '../consts';
 import { pointToArray, pointBezier } from './point';
 import { headBezierAngle, headBezierXY } from './head';
 
-export const pointAbsolute = (point, offset) => ({
+export const pointSubstract = (point, subtrahend) => ({
   ...point,
-  x: point.x - offset.x + 10,
-  y: point.y - offset.y + 10,
+  x: point.x - subtrahend,
+  y: point.y - subtrahend,
 });
+
+export const pointAbsolute = (point, offset) => pointSubstract(
+  {
+    ...point,
+    x: point.x - offset.x,
+    y: point.y - offset.y,
+  },
+  -ARROW_HEAD_SIZE,
+);
 
 const startPosition = (from, to) => ({
   x: Math.min(from.x, to.x),
@@ -63,18 +73,30 @@ const pathListBezier = (from, to) => {
   return pathSubstractStartPosition(points);
 };
 
-const path = (from, to) => {
-  const offset = startPosition(from, to);
-  const points = pathListBezier(pointAbsolute(from, offset), pointAbsolute(to, offset));
+const pathOffset = (points, pathXYPosition) => {
+  const minPoint = (prop) => Math.min(
+    points[0][prop] - ARROW_HEAD_SIZE,
+    points[3][prop] - ARROW_HEAD_SIZE,
+  );
 
   return {
-    offset: {
-      x: offset.x - Math.min(points[0].x - 10, points[3].x - 10) - 10,
-      y: offset.y - Math.min(points[0].y - 10, points[3].y - 10) - 10,
-    },
+    x: pathXYPosition.x - minPoint('x') - ARROW_HEAD_SIZE,
+    y: pathXYPosition.y - minPoint('y') - ARROW_HEAD_SIZE,
+  };
+};
+
+const path = (from, to) => {
+  const pathXYPosition = startPosition(from, to);
+  const points = pathListBezier(
+    pointAbsolute(from, pathXYPosition),
+    pointAbsolute(to, pathXYPosition),
+  );
+
+  return {
+    offset: pathOffset(points, pathXYPosition),
     size: pathReducer(points, (prev, curr) => ({
-      x: Math.max(prev.x, curr.x) + 20,
-      y: Math.max(prev.y, curr.y) + 20,
+      x: Math.max(prev.x, curr.x) + ARROW_HEAD_SIZE * 2,
+      y: Math.max(prev.y, curr.y) + ARROW_HEAD_SIZE * 2,
     })),
     points: pathListSVG(points),
     head: {
