@@ -9,7 +9,7 @@ export const pointAbsolute = (point, offset) => ({
   y: point.y - offset.y,
 });
 
-const startPosition = (from, to) => ({
+const pathStartPosition = (from, to) => ({
   x: Math.min(from.x, to.x),
   y: Math.min(from.y, to.y),
 });
@@ -64,7 +64,7 @@ const pathListBezier = (from, to) => {
 };
 
 const path = (from, to) => {
-  const offset = startPosition(from, to);
+  const offset = pathStartPosition(from, to);
   const points = pathListBezier(pointAbsolute(from, offset), pointAbsolute(to, offset));
 
   return {
