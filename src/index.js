@@ -1,6 +1,7 @@
 import Element from './jsx/element';
 import ends from './arrow/ends';
 import path from './arrow/path';
+import observer from './arrow/observer';
 
 const arrowCreate = ({ className = 'arrow', from, to }) => {
   const arrow = path(ends(from), ends(to));
@@ -23,6 +24,11 @@ const arrowCreate = ({ className = 'arrow', from, to }) => {
       </svg>
     </svg>
   );
+
+  const watcher = observer(from, to);
+  watcher.observe(() => {
+    console.log('change position'); // eslint-disable-line
+  });
 
   return node;
 };
