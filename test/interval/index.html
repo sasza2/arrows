@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="./../../dist/main.js"></script>
+    <script src="./app.js"></script>
+    <style>
+      #from, #to {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        font-size: 0px;
+        background-color: red;
+      }
+      textarea {
+        width: 400px;
+        height: 400px;
+      }
+      .arrow {
+        pointer-events: none;
+      }
+      .arrow__path {
+        stroke: #000;
+        fill: transparent;
+        stroke-dasharray: 4 2;
+      }
+      .arrow__head line {
+        stroke: #000;
+        stroke-width: 1px;        
+      }
+    </style>
+  </head>
+  <body>
+    <div id="from"></div>
+    <div id="to"></div>
+  </body>
+</html>
