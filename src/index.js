@@ -6,11 +6,14 @@ import observer from './arrow/observer';
 const arrowCreate = ({ className = 'arrow', from, to }) => {
   const arrow = path(ends(from), ends(to));
 
+  const arrowRef = Element.createRef();
+  const pathRef = Element.createRef();
+
   const node = (
-    <svg className={className} style={{
+    <svg ref={arrowRef} className={className} style={{
       top: arrow.offset.y, left: arrow.offset.x, position: 'absolute',
     }} width={arrow.size.x} height={arrow.size.y}>
-      <path className={`${className}__path`} d={arrow.points} />
+      <path ref={pathRef} className={`${className}__path`} d={arrow.points} />
       <svg
         className={`${className}__head`}
         x={arrow.head.x - 10}
@@ -28,6 +31,9 @@ const arrowCreate = ({ className = 'arrow', from, to }) => {
   const watcher = observer(from, to);
   watcher.observe(() => {
     console.log('change position'); // eslint-disable-line
+    console.log(path(ends(from), ends(to)));
+    console.log(arrowRef.current);
+    console.log(pathRef.current);
   });
 
   return node;
