@@ -16,7 +16,7 @@ export const pointAbsolute = (point, offset) => pointSubstract(
     x: point.x - offset.x,
     y: point.y - offset.y,
   },
-  -ARROW_HEAD_SIZE,
+  -ARROW_HEAD_SIZE * 2,
 );
 
 const startPosition = (from, to) => ({
@@ -56,8 +56,8 @@ const pathSubstractStartPosition = (points) => {
 
   return points.map((point) => ({
     ...point,
-    x: point.x - min.x,
-    y: point.y - min.y,
+    x: point.x - min.x + ARROW_HEAD_SIZE,
+    y: point.y - min.y + ARROW_HEAD_SIZE,
   }));
 };
 
@@ -92,12 +92,17 @@ const path = (from, to) => {
     pointAbsolute(to, pathXYPosition),
   );
 
+  const size = pathReducer(points, (prev, curr) => ({
+    x: Math.max(prev.x, curr.x),
+    y: Math.max(prev.y, curr.y),
+  }));
+
   return {
     offset: pathOffset(points, pathXYPosition),
-    size: pathReducer(points, (prev, curr) => ({
-      x: Math.max(prev.x, curr.x) + ARROW_HEAD_SIZE * 2,
-      y: Math.max(prev.y, curr.y) + ARROW_HEAD_SIZE * 2,
-    })),
+    size: {
+      x: size.x + ARROW_HEAD_SIZE * 2,
+      y: size.y + ARROW_HEAD_SIZE * 2,
+    },
     points: pathListSVG(points),
     head: {
       ...headBezierAngle(1, points),
