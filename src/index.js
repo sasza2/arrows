@@ -8,6 +8,7 @@ const arrowCreate = ({ className = 'arrow', from, to }) => {
 
   const arrowRef = Element.createRef();
   const pathRef = Element.createRef();
+  const headRef = Element.createRef();
 
   const node = (
     <svg ref={arrowRef} className={className} style={{
@@ -15,6 +16,7 @@ const arrowCreate = ({ className = 'arrow', from, to }) => {
     }} width={arrow.size.x} height={arrow.size.y}>
       <path ref={pathRef} className={`${className}__path`} d={arrow.points} />
       <svg
+        ref={headRef}
         className={`${className}__head`}
         x={arrow.head.x - 10}
         y={arrow.head.y - 10}
@@ -30,10 +32,18 @@ const arrowCreate = ({ className = 'arrow', from, to }) => {
 
   const watcher = observer(from, to);
   watcher.observe(() => {
-    console.log('change position'); // eslint-disable-line
-    console.log(path(ends(from), ends(to)));
-    console.log(arrowRef.current);
-    console.log(pathRef.current);
+    const nextArrow = path(ends(from), ends(to));
+    arrowRef.current.style.top = `${nextArrow.offset.y}px`;
+    arrowRef.current.style.left = `${nextArrow.offset.x}px`;
+    arrowRef.current.style.width = `${nextArrow.size.x}px`;
+    arrowRef.current.style.height = `${nextArrow.size.y}px`;
+
+    pathRef.current.setAttribute('d', nextArrow.points);
+
+    headRef.current.setAttribute('transform', `rotate(${(nextArrow.head.degree)}, ${nextArrow.head.x}, ${nextArrow.head.y})`);
+
+    headRef.current.setAttribute('x', `${nextArrow.head.x - 10}px`);
+    headRef.current.setAttribute('y', `${nextArrow.head.y - 10}px`);
   });
 
   return node;

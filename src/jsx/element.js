@@ -3,6 +3,15 @@ import isObject from 'lodash/isObject';
 
 const XMLNS = 'http://www.w3.org/2000/svg';
 
+const createRef = () => {
+  const set = (node) => {
+    set.current = node;
+  };
+
+  set.current = null;
+  return set;
+};
+
 const createStyle = (attribute) => {
   const style = Object.entries(attribute).reduce((prev, [key, value]) => {
     if (isNumber(value)) return `${key}: ${value}px; ${prev}`;
@@ -56,5 +65,6 @@ const fake = ({
 
 export default {
   create,
+  createRef,
   fake,
 };
