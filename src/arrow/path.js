@@ -1,15 +1,25 @@
 import flatten from 'lodash/flatten';
 
+import { ARROW_HEAD_SIZE } from '../consts';
 import { pointToArray, pointBezier } from './point';
 import { headBezierAngle, headBezierXY } from './head';
 
-export const pointAbsolute = (point, offset) => ({
+export const pointSubstract = (point, subtrahend) => ({
   ...point,
-  x: point.x - offset.x,
-  y: point.y - offset.y,
+  x: point.x - subtrahend,
+  y: point.y - subtrahend,
 });
 
-const pathStartPosition = (from, to) => ({
+export const pointAbsolute = (point, offset) => pointSubstract(
+  {
+    ...point,
+    x: point.x - offset.x,
+    y: point.y - offset.y,
+  },
+  -ARROW_HEAD_SIZE * 2,
+);
+
+const startPosition = (from, to) => ({
   x: Math.min(from.x, to.x),
   y: Math.min(from.y, to.y),
 });
@@ -46,8 +56,8 @@ const pathSubstractStartPosition = (points) => {
 
   return points.map((point) => ({
     ...point,
-    x: point.x - min.x,
-    y: point.y - min.y,
+    x: point.x - min.x + ARROW_HEAD_SIZE,
+    y: point.y - min.y + ARROW_HEAD_SIZE,
   }));
 };
 
@@ -63,19 +73,36 @@ const pathListBezier = (from, to) => {
   return pathSubstractStartPosition(points);
 };
 
-const path = (from, to) => {
-  const offset = pathStartPosition(from, to);
-  const points = pathListBezier(pointAbsolute(from, offset), pointAbsolute(to, offset));
+const pathOffset = (points, pathXYPosition) => {
+  const minPoint = (prop) => Math.min(
+    points[0][prop] - ARROW_HEAD_SIZE,
+    points[3][prop] - ARROW_HEAD_SIZE,
+  );
 
   return {
-    offset: {
-      x: offset.x - points[0].x,
-      y: offset.y - points[0].y,
+    x: pathXYPosition.x - minPoint('x') - ARROW_HEAD_SIZE,
+    y: pathXYPosition.y - minPoint('y') - ARROW_HEAD_SIZE,
+  };
+};
+
+const path = (from, to) => {
+  const pathXYPosition = startPosition(from, to);
+  const points = pathListBezier(
+    pointAbsolute(from, pathXYPosition),
+    pointAbsolute(to, pathXYPosition),
+  );
+
+  const size = pathReducer(points, (prev, curr) => ({
+    x: Math.max(prev.x, curr.x),
+    y: Math.max(prev.y, curr.y),
+  }));
+
+  return {
+    offset: pathOffset(points, pathXYPosition),
+    size: {
+      x: size.x + ARROW_HEAD_SIZE * 2,
+      y: size.y + ARROW_HEAD_SIZE * 2,
     },
-    size: pathReducer(points, (prev, curr) => ({
-      x: Math.max(prev.x, curr.x),
-      y: Math.max(prev.y, curr.y),
-    })),
     points: pathListSVG(points),
     head: {
       ...headBezierAngle(1, points),

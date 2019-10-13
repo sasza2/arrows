@@ -16,8 +16,8 @@ test('check pointAbsolute', () => {
   };
 
   const expected = {
-    x: 60,
-    y: 60,
+    x: 80,
+    y: 80,
   };
 
   expect(pointAbsolute(point, offset)).toStrictEqual(expected);
@@ -36,8 +36,8 @@ test('check pointAbsolute with extra props', () => {
   };
 
   const expected = {
-    x: 190,
-    y: 1480,
+    x: 210,
+    y: 1500,
     translation: [1, -1],
   };
 
@@ -87,14 +87,14 @@ test('path', () => {
   };
 
   const expected = {
-    offset: { x: -222.5, y: -350 },
-    size: { x: 975, y: 1200 },
-    points: 'M 325 400 C 0 0, 715 1200, 975 800',
+    offset: { x: -242.5, y: -380 },
+    size: { x: 1015, y: 1270 },
+    points: 'M 345 430 C 10 10, 727 1250, 995 830',
     head: {
-      degree: -56.952,
-      radius: -0.994,
-      x: 975,
-      y: 800,
+      degree: -57.468,
+      radius: -1.003,
+      x: 995,
+      y: 830,
     },
   };
 
