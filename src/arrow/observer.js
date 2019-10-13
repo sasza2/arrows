@@ -27,6 +27,13 @@ const observer = (from, to) => {
   let callback = null;
 
   const timer = setInterval(() => {
+    if (
+      !document.body.contains(from.node.parentNode)
+      || !document.body.contains(to.node.parentNode)
+    ) {
+      clearInterval(timer);
+      return;
+    }
     const next = nextPositions({ prevs, from, to });
     if (!next) return;
     prevs.from = next.from;
