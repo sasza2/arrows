@@ -13,7 +13,7 @@ const arrowCreate = ({ className = 'arrow', from, to }) => {
   const node = (
     <svg ref={arrowRef} className={className} style={{
       top: arrow.offset.y, left: arrow.offset.x, position: 'absolute',
-    }} width={arrow.size.x} height={arrow.size.y}>
+    }} width={arrow.size.width} height={arrow.size.height}>
       <path ref={pathRef} className={`${className}__path`} d={arrow.points} />
       <svg
         ref={headRef}
@@ -35,8 +35,8 @@ const arrowCreate = ({ className = 'arrow', from, to }) => {
     const nextArrow = path(ends(from), ends(to));
     arrowRef.current.style.top = `${nextArrow.offset.y}px`;
     arrowRef.current.style.left = `${nextArrow.offset.x}px`;
-    arrowRef.current.style.width = `${nextArrow.size.x}px`;
-    arrowRef.current.style.height = `${nextArrow.size.y}px`;
+    arrowRef.current.style.width = `${nextArrow.size.width}px`;
+    arrowRef.current.style.height = `${nextArrow.size.height}px`;
 
     pathRef.current.setAttribute('d', nextArrow.points);
 

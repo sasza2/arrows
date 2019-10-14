@@ -110,8 +110,8 @@ const path = (from, to) => {
   return {
     offset: pathOffset(points, pathXYPosition),
     size: {
-      x: size.x + ARROW_HEAD_SIZE * 2,
-      y: size.y + ARROW_HEAD_SIZE * 2,
+      width: size.x + ARROW_HEAD_SIZE * 2,
+      height: size.y + ARROW_HEAD_SIZE * 2,
     },
     points: pathListSVG(points),
     head: {
