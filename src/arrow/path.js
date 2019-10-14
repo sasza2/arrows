@@ -73,15 +73,25 @@ const pathListBezier = (from, to) => {
   return pathSubstractStartPosition(points);
 };
 
+const windowScroll = () => {
+  if (!window) return { scrollX: 0, scrollY: 0 };
+  return {
+    x: window.scrollX,
+    y: window.scrollY,
+  };
+};
+
 const pathOffset = (points, pathXYPosition) => {
   const minPoint = (prop) => Math.min(
     points[0][prop] - ARROW_HEAD_SIZE,
     points[3][prop] - ARROW_HEAD_SIZE,
   );
 
+  const scroll = windowScroll();
+
   return {
-    x: pathXYPosition.x - minPoint('x') - ARROW_HEAD_SIZE,
-    y: pathXYPosition.y - minPoint('y') - ARROW_HEAD_SIZE,
+    x: pathXYPosition.x - minPoint('x') - ARROW_HEAD_SIZE + scroll.x,
+    y: pathXYPosition.y - minPoint('y') - ARROW_HEAD_SIZE + scroll.y,
   };
 };
 
