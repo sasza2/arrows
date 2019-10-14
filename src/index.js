@@ -1,7 +1,7 @@
 import Element from './jsx/element';
 import ends from './arrow/ends';
 import path from './arrow/path';
-import observer from './arrow/observer';
+import observer from './observer/observer';
 
 const arrowCreate = ({ className = 'arrow', from, to }) => {
   const arrow = path(ends(from), ends(to));
