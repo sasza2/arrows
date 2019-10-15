@@ -1,5 +1,5 @@
 # arrows
-Library for creating SVG arrow between two HTML nodes.
+Library for creating SVG arrow between two HTML elements. Positions of elements are observed, so when they change arrow will rerender.
 
 ![Alt text](docs/arrow-1.png?raw=true "Arrow example")
 
@@ -30,7 +30,11 @@ const arrow = arrowCreate({
 document.body.appendChild(arrow); // arrow is HTMLElement
 ```
 
+Could be also used from `window.arrowCreate()`
+
 ## CSS styles
+Styles should be added to make arrow visible. Feel free to change them.
+
 ```css
 .arrow {
   pointer-events: none;
@@ -49,7 +53,7 @@ document.body.appendChild(arrow); // arrow is HTMLElement
 ```
 
 # API
-```
+```typescript
 arrowCreate(path:Path):HTMLElement
 ```
 
@@ -76,7 +80,20 @@ interface Point {
 }
 ```
 
-`translation` is array of two numbers `[x, y]` like `[-0.5, 1.3]` which are used by Bezier curve. 
+`translation` is array of two numbers `[x, y]` like `[-0.5, 1.3]` which are used by Bezier curve. `x` and `y` are offset of Bezier control point. Position of control point is calculated by function:
+
+```javascript
+{
+  x: point.x + viewport.width * point.translation[0],
+  y: point.y + viewport.height * point.translation[1],
+}
+```
+
+- `point.x` / `point.y` are from / to position,
+- `viewport` is size between points,
+- `point.translation` is array from above.
+
+translation could be tested in `test/form/index.html`
 
 ```typescript
 interface Path {
@@ -86,7 +103,27 @@ interface Path {
 }
 ```
 
+# Building
+```sh
+npm run build
+```
+
+# Development
+```sh
+npm run start
+```
+
 # Testing
 ```sh
 npm run test
+```
+
+## Example 1
+```
+test/form/index.html
+```
+
+## Example 2
+```
+test/interval/index.html
 ```

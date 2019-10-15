@@ -52,3 +52,4 @@ const arrowCreate = ({ className = 'arrow', from, to }) => {
 if (window) window.arrowCreate = arrowCreate;
 
 export default arrowCreate;
+export { DIRECTION } from './consts';
