@@ -1,9 +1,10 @@
 {
-  "name": "arrows",
+  "name": "svg-arrows",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --mode=production",
     "start": "webpack --mode=development --watch",
     "test": "jest",
     "lint": "eslint src --fix"
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/plugin-transform-modules-commonjs": "^7.6.0",
+    "@babel/preset-env": "^7.6.3",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-react-jsx": "^6.24.1",
