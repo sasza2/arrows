@@ -1,23 +1,32 @@
-/* eslint-disable */
+const PRECISION = 1000.0;
 
-const PRECISION = 1000.0
-
-const round = value => Math.round(value * PRECISION) / PRECISION
+const round = (value) => Math.round(value * PRECISION) / PRECISION;
 
 export const headBezierAngle = (t, points) => {
-  const dx = ((1 - t) ** 2) * (points[1].x - points[0].x) + 2 * t * (1 - t) * (points[2].x - points[1].x) + t * t * (points[3].x - points[2].x);
-  const dy = ((1 - t) ** 2) * (points[1].y - points[0].y) + 2 * t * (1 - t) * (points[2].y - points[1].y) + t * t * (points[3].y - points[2].y);
-  
-  const radius = round(-Math.atan2(dx, dy) + 0.5 * Math.PI)
-  const degree = round(radius * (180 / Math.PI))
+  const angle = (prop) => ((1 - t) ** 2) * (points[1][prop] - points[0][prop])
+    + 2 * t * (1 - t) * (points[2][prop] - points[1][prop])
+    + t * t * (points[3][prop] - points[2][prop]);
+
+  const dx = angle('x');
+  const dy = angle('y');
+
+  const radius = round(-Math.atan2(dx, dy) + 0.5 * Math.PI);
+  const degree = round(radius * (180 / Math.PI));
 
   return {
     degree,
     radius,
-  }
+  };
 };
 
-export const headBezierXY = (t, points) => ({
-  x: ((1 - t) ** 3) * points[0].x + 3 * t * ((1 - t) ** 2) * points[1].x + 3 * t * t * (1 - t) * points[2].x + t * t * t * points[3].x,
-  y: ((1 - t) ** 3) * points[0].y + 3 * t * ((1 - t) ** 2) * points[1].y + 3 * t * t * (1 - t) * points[2].y + t * t * t * points[3].y,
-})
+export const headBezierXY = (t, points) => {
+  const position = (prop) => ((1 - t) ** 3) * points[0][prop]
+    + 3 * t * ((1 - t) ** 2) * points[1][prop]
+    + 3 * t * t * (1 - t) * points[2][prop]
+    + t * t * t * points[3][prop];
+
+  return {
+    x: position('x'),
+    y: position('y'),
+  };
+};
