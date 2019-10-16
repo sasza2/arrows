@@ -41,7 +41,7 @@ window.addEventListener('load', function(){
 
     if (arrow) document.body.removeChild(arrow)
     arrow = arrowCreate(arrowProps)
-    document.body.appendChild(arrow)
+    document.body.appendChild(arrow.node)
   }
 
   document.querySelector('textarea').value = JSON.stringify(arrowProps, null, 2)

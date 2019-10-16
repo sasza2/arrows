@@ -46,7 +46,10 @@ const arrowCreate = ({ className = 'arrow', from, to }) => {
     headRef.current.setAttribute('y', `${nextArrow.head.y - 10}px`);
   });
 
-  return node;
+  return {
+    node,
+    timer: watcher.timer,
+  };
 };
 
 if (window) window.arrowCreate = arrowCreate;

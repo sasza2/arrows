@@ -36,7 +36,5 @@ window.addEventListener('load', function(){
   setInterval(update, 1000);
 
   arrow = arrowCreate(arrowProps)
-  console.log(arrowProps)
-  console.log(arrow)
-  document.body.appendChild(arrow)
+  document.body.appendChild(arrow.node)
 })

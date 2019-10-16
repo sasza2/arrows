@@ -27,7 +27,12 @@ const arrow = arrowCreate({
   },
 })
 
-document.body.appendChild(arrow); // arrow is HTMLElement
+/*
+  - arrow.node is HTMLElement
+  - arrow.timer is idInterval from setInterval()
+    REMEMBER about clearInterval(node.timer) after unmount
+*/
+document.body.appendChild(arrow.node);
 ```
 
 Could be also used from `window.arrowCreate()`
@@ -54,8 +59,17 @@ Styles should be added to make arrow visible. Feel free to change them.
 
 # API
 ```typescript
-arrowCreate(path:Path):HTMLElement
+arrowCreate(path:Path):Arrow
 ```
+
+```typescript
+interface Arrow {
+  node: HTMLElement;
+  timer: number;
+}
+```
+
+`timer` should be used to `clearInterval()` of observer.
 
 ```typescript
 enum Direction {
