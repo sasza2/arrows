@@ -6,7 +6,7 @@ Library for creating SVG arrow between two HTML elements. Positions of elements 
 # Installation
 
 ```sh
-npm install arrows
+npm install arrows-svg
 ```
 # How to use it
 
