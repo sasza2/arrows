@@ -1,7 +1,7 @@
-# arrows
+# arrows-svg
 Library for creating SVG arrow between two HTML elements. Positions of elements are observed, so when they change arrow will rerender.
 
-![Alt text](docs/arrow-1.png?raw=true "Arrow example")
+![Arrow](docs/arrow-1.png?raw=true "Arrow example")
 
 # Installation
 

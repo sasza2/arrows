@@ -1,7 +1,14 @@
+import isFunction from 'lodash/isFunction';
+
 import { DIRECTION } from '../consts';
 
+const endNode = (point) => (isFunction(point.node)
+  ? point.node()
+  : point.node
+);
+
 const endXY = (point) => {
-  const rect = point.node.getBoundingClientRect();
+  const rect = endNode(point).getBoundingClientRect();
   switch (point.direction) {
     case DIRECTION.TOP_LEFT:
       return {
