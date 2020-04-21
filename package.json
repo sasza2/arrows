@@ -1,6 +1,6 @@
 {
   "name": "arrows-svg",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "SVG arrow between two HTML elements",
   "keywords": [
     "arrow",
@@ -18,7 +18,7 @@
     "type": "git",
     "url": "git+https://github.com/sasza2/arrows.git"
   },
-  "author": "",
+  "author": "sasza",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/sasza2/arrows/issues"
@@ -30,21 +30,21 @@
   },
   "homepage": "https://github.com/sasza2/arrows#readme",
   "devDependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
-    "@babel/preset-env": "^7.6.3",
-    "babel-eslint": "^10.0.3",
-    "babel-loader": "^8.0.6",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
-    "eslint": "^6.5.1",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-plugin-import": "^2.18.2",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.16.0",
-    "husky": "^3.0.8",
-    "jest": "^24.9.0",
-    "webpack": "^4.41.0",
-    "webpack-cli": "^3.3.9"
+    "eslint-plugin-react": "^7.19.0",
+    "husky": "^4.2.5",
+    "jest": "^25.4.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   },
   "dependencies": {
     "lodash": "^4.17.15"

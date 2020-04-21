@@ -10,6 +10,8 @@ npm install arrows-svg
 ```
 # How to use it
 
+https://codesandbox.io/s/relaxed-sara-8iuxr
+
 ```js
 import arrowCreate, { DIRECTION } from 'arrows'
 

@@ -8,6 +8,9 @@ module.exports = {
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
+  node: {
+    global: false
+  },
   module: {
     rules: [
       {

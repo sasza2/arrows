@@ -1,0 +1,8 @@
+/docs
+/src
+/test
+.babelrc
+.eslintignore
+.eslintrc
+jest.config.js
+webpack.config.js
