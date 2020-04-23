@@ -1,8 +1,6 @@
-import isFunction from 'lodash/isFunction';
+import { DIRECTION } from 'consts';
 
-import { DIRECTION } from '../consts';
-
-const endNode = (point) => (isFunction(point.node)
+const endNode = (point) => (typeof point.node === 'function'
   ? point.node()
   : point.node
 );
