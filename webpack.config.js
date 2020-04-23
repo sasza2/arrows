@@ -8,6 +8,12 @@ module.exports = {
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
+  resolve: {
+    modules: [
+      path.resolve('./src'),
+      path.resolve('./node_modules')
+    ]
+  },
   node: {
     global: false
   },
