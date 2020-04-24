@@ -9,7 +9,7 @@ const image = ({ src, width, height }) => {
   const node = document.createElementNS(SVG_NS, 'image');
   node.setAttributeNS(null, 'width', width);
   node.setAttributeNS(null, 'height', height);
-  node.setAttributeNS(null, 'x', -width / 2);
+  node.setAttributeNS(null, 'x', -width);
   node.setAttributeNS(null, 'y', -height / 2);
   node.setAttributeNS(XLINK_NS, 'xlink:href', src);
 

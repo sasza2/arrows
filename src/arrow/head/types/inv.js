@@ -1,8 +1,9 @@
 
 import Element from 'jsx/element';
+import { HEAD_DEFAULT_SIZE } from 'consts';
 
-const inv = ({ size = 10 }) => ({
-  node: <path d={`M${-size} 0 L${size} ${-size} L${size} ${size} Z`} />,
+const inv = ({ size = HEAD_DEFAULT_SIZE }) => ({
+  node: <path d={`M${-size} 0 L0 ${-size} L0 ${size} Z`} />,
   width: size,
   height: size,
 });

@@ -1,6 +1,7 @@
 import Element from 'jsx/element';
+import { HEAD_DEFAULT_SIZE } from 'consts';
 
-const thin = ({ size = 10 }) => ({
+const thin = ({ size = HEAD_DEFAULT_SIZE }) => ({
   node: (
     <g>
       <line

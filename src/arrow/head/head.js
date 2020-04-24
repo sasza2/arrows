@@ -36,7 +36,7 @@ export const headBezierXY = (head, points) => {
 };
 
 const headToFunction = (head) => {
-  if (!head) return { func: TYPES.NORMAL };
+  if (!head) return { func: TYPES.THIN };
   if (typeof head === 'string') return headToFunction(TYPES[head]);
   if (typeof head === 'object') {
     if (typeof head.func === 'function') return head;
@@ -49,7 +49,7 @@ const headToFunction = (head) => {
   }
   if (typeof head === 'function') return { func: head };
 
-  return { ...head, func: TYPES.NORMAL };
+  return { ...head, func: TYPES.THIN };
 };
 
 export const createHead = (head) => {
@@ -59,6 +59,13 @@ export const createHead = (head) => {
     ...headFunction.func(headFunction),
   };
 
+  if (!headWithNode.node === undefined || !headWithNode.width || !headWithNode.height) {
+    throw new Error('head function should return { node, width, height }');
+  }
   if (!headWithNode.distance) headWithNode.distance = 1;
   return headWithNode;
 };
+
+export const headTransformCSS = (head) => (
+  `rotate(${(head.degree)}, ${head.x}, ${head.y}), translate(${head.x}, ${head.y})`
+);

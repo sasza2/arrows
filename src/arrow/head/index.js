@@ -1,1 +1,3 @@
-export { headBezierAngle, headBezierXY, createHead } from './head';
+export {
+  headBezierAngle, headBezierXY, headTransformCSS, createHead,
+} from './head';
