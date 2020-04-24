@@ -6,6 +6,9 @@ const endNode = (point) => (typeof point.node === 'function'
 );
 
 const endXY = (point) => {
+  const endNodePoint = endNode(point);
+  if (!endNodePoint) throw new Error("point is null, check if 'from'/'to' exists");
+
   const rect = endNode(point).getBoundingClientRect();
   switch (point.direction) {
     case DIRECTION.TOP_LEFT:
