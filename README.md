@@ -68,10 +68,11 @@ arrowCreate(path:Path):Arrow
 interface Arrow {
   node: HTMLElement;
   timer: number;
+  clear();
 }
 ```
 
-`timer` should be used to `clearInterval()` of observer.
+\* `clear()` or `clearInterval(timer)` should be `always` used after removal of Arrow.
 
 ```typescript
 enum Direction {
@@ -105,9 +106,9 @@ interface Point {
 }
 ```
 
-- `point.x` / `point.y` are from / to position,
-- `viewport` is size between points,
-- `point.translation` is array from above.
+\* `point.x` / `point.y` are from / to position,
+\* `viewport` is size between points,
+\* `point.translation` is array from above.
 
 translation could be tested in `test/form/index.html`
 
@@ -118,6 +119,97 @@ interface Path {
   to: Point;
 }
 ```
+
+# Custom head
+Arrow could have custom heads.
+
+### example with `diamond` head
+```js
+import arrowCreate, { DIRECTION, HEAD } from 'arrows'
+
+const arrow = arrowCreate({
+  ...,
+  head: HEAD.DIAMOND, // or func: 'diamond' / 'DIAMOND' as string
+})
+
+document.body.appendChild(arrow.node);
+```
+
+### example with `diamond` head and specified size
+```js
+import arrowCreate, { DIRECTION, HEAD } from 'arrows'
+
+const arrow = arrowCreate({
+  ...,
+  head: {
+    func: HEAD.DIAMOND, // or func: 'diamond' / 'DIAMOND' as string
+    size: 30, 
+    // custom options that will be passed to head function
+  }
+})
+
+document.body.appendChild(arrow.node);
+```
+
+### example with `image` head
+
+```js
+import arrowCreate, { DIRECTION, HEAD } from 'arrows'
+
+const arrow = arrowCreate({
+  ...,
+  head: {
+    func: HEAD.IMAGE, // could be just 'image'
+    width: 20, // px
+    height: 30, // px
+    image: 'abc.png', // url of image head
+  }
+})
+
+document.body.appendChild(arrow.node);
+```
+
+## Head types
+![Head](docs/heads.png?raw=true "Head types")
+
+\* Default head size is `10`<br />
+\* Default head is `thin`
+
+## Own head
+```js
+import arrowCreate, { DIRECTION, HEAD } from 'arrows'
+
+const arrow = arrowCreate({
+  ...,
+  head: {
+    func: ({ size }) => { // all passed props from head
+      const SVG_NS = 'http://www.w3.org/2000/svg';
+      const node = document.createElementNS(SVG_NS, 'g');
+
+      // ... bla bla like node.setAttributeNS(...)
+
+      return {
+        node,
+        width: 30,
+        height: 25,
+      }
+      
+      return {
+        // OR return as string like
+        node: '<rect x="-10" y="-10" width="20" height="20" />',
+        width: 20,
+        height: 20,
+      }
+    },
+    size: 20,
+  }
+})
+
+document.body.appendChild(arrow.node);
+```
+
+\* Return of custom head function always
+require to params like `node`, `width`, `height`
 
 # Building
 ```sh
@@ -134,12 +226,9 @@ npm run start
 npm run test
 ```
 
-## Example 1
+## Examples
 ```
 test/form/index.html
-```
-
-## Example 2
-```
 test/interval/index.html
+test/heads/index.html
 ```
