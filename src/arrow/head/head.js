@@ -4,7 +4,8 @@ const PRECISION = 1000.0;
 
 const round = (value) => Math.round(value * PRECISION) / PRECISION;
 
-export const headBezierAngle = (t, points) => {
+export const headBezierAngle = (head, points) => {
+  const t = head.distance;
   const angle = (prop) => ((1 - t) ** 2) * (points[1][prop] - points[0][prop])
     + 2 * t * (1 - t) * (points[2][prop] - points[1][prop])
     + t * t * (points[3][prop] - points[2][prop]);
@@ -21,7 +22,8 @@ export const headBezierAngle = (t, points) => {
   };
 };
 
-export const headBezierXY = (t, points) => {
+export const headBezierXY = (head, points) => {
+  const t = head.distance;
   const position = (prop) => ((1 - t) ** 3) * points[0][prop]
     + 3 * t * ((1 - t) ** 2) * points[1][prop]
     + 3 * t * t * (1 - t) * points[2][prop]
@@ -34,7 +36,7 @@ export const headBezierXY = (t, points) => {
 };
 
 const headToFunction = (head) => {
-  if (!head) return { func: TYPES.STANDARD };
+  if (!head) return { func: TYPES.NORMAL };
   if (typeof head === 'string') return headToFunction(TYPES[head]);
   if (typeof head === 'object') {
     if (typeof head.func === 'function') return head;
@@ -47,10 +49,16 @@ const headToFunction = (head) => {
   }
   if (typeof head === 'function') return { func: head };
 
-  throw new Error('head param should be object like head: { func: "standard" } or head: "standard"');
+  return { ...head, func: TYPES.NORMAL };
 };
 
 export const createHead = (head) => {
   const headFunction = headToFunction(head);
-  return headFunction.func(headFunction);
+  const headWithNode = {
+    ...head,
+    ...headFunction.func(headFunction),
+  };
+
+  if (!headWithNode.distance) headWithNode.distance = 1;
+  return headWithNode;
 };
