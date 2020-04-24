@@ -67,4 +67,4 @@ if (window) window.arrowCreate = arrowCreate;
 
 export default arrowCreate;
 export { DIRECTION } from './consts';
-export { default as TYPES } from './arrow/head/types';
+export { default as HEAD } from './arrow/head/types';
