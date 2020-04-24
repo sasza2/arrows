@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="./../../dist/main.js"></script>
+    <script src="./app.js"></script>
+    <style>
+      #from, #to {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        font-size: 0px;
+        background-color: red;
+      }
+      #to {
+        width: 150px;
+        height: 150px;
+        background-color: white;
+        border: 2px solid violet;
+      }
+      textarea {
+        width: 400px;
+        height: 400px;
+      }
+      .arrow {
+        pointer-events: none;
+      }
+      .arrow__path {
+        stroke: #000;
+        fill: transparent;
+        stroke-dasharray: 4 2;
+      }
+      .arrow__head line {
+        stroke: #000;
+        stroke-width: 1px;        
+      }
+      th, td {
+        border: 1px solid #ddd;
+        font-size: 10px;
+      }
+      th {
+        position: relative;
+        width: 50px;
+      }
+      th .point-to {
+        position: absolute;
+        left: 50%;
+        top: 20px;
+      }
+      .arrow td {
+        position: relative;
+        height: 100px;
+        vertical-align: bottom;
+      }
+      .arrow td .point-from {
+        position: absolute;
+        left: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <th>
+          diamond
+          <span class='point-to point-to-diamond'></span>
+        </th>
+        <th>
+          dot
+          <span class='point-to point-to-dot'></span>
+        </th>
+        <th>
+          image
+          <span class='point-to point-to-image'></span>
+        </th>
+        <th>
+          inv
+          <span class='point-to point-to-inv'></span>
+        </th>
+        <th>
+          none
+          <span class='point-to point-to-none'></span>
+        </th>
+        <th>
+          normal
+          <span class='point-to point-to-normal'></span>
+        </th>
+        <th>
+          thin
+          <span class='point-to point-to-thin'></span>
+        </th>
+        <th>
+          vee
+          <span class='point-to point-to-vee'></span>
+        </th>
+      </tr>
+      <tr class="arrow">
+        <td>
+          <span class='point-from point-from-diamond'></span>
+        </td>
+        <td>
+          <span class='point-from point-from-dot'></span>
+        </td>
+        <td>
+          <span class='point-from point-from-image'></span>
+        </td>
+        <td>
+          <span class='point-from point-from-inv'></span>
+        </td>
+        <td>
+          <span class='point-from point-from-none'></span>
+        </td>
+        <td>
+          <span class='point-from point-from-normal'></span>
+        </td>
+        <td>
+          <span class='point-from point-from-thin'></span>
+        </td>
+        <td>
+          <span class='point-from point-from-vee'></span>
+        </td>
+      </tr>
+      <tr>
+        <td>{<br />size,<br />}</td>
+        <td>{<br />size,<br />}</td>
+        <td>{<br />image,<br />width,<br />height,<br />}</td>
+        <td>{<br />size,<br />}</td>
+        <td>-</td>
+        <td>{<br />size,<br />}</td>
+        <td>{<br />size,<br />}</td>
+        <td>{<br />size,<br />}</td>
+      </tr>
+    </table>
+  </body>
+</html>
