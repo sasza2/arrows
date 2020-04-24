@@ -1,22 +1,22 @@
-import flatten from 'lodash/flatten';
-
-import { ARROW_HEAD_SIZE } from '../consts';
 import { pointToArray, pointBezier } from './point';
-import { headBezierAngle, headBezierXY } from './head';
+import { createHead, headBezierAngle, headBezierXY } from './head';
 
 export const pointSubstract = (point, subtrahend) => ({
   ...point,
-  x: point.x - subtrahend,
-  y: point.y - subtrahend,
+  x: point.x - subtrahend.x,
+  y: point.y - subtrahend.y,
 });
 
-export const pointAbsolute = (point, offset) => pointSubstract(
+export const pointAbsolute = (point, offset, head) => pointSubstract(
   {
     ...point,
     x: point.x - offset.x,
     y: point.y - offset.y,
   },
-  -ARROW_HEAD_SIZE * 2,
+  {
+    x: -head.width * 2,
+    y: -head.height * 2,
+  },
 );
 
 const startPosition = (from, to) => ({
@@ -35,12 +35,12 @@ export const pathListSVG = (points) => {
   list.push(',');
   list.push(pointToArray(points[3]));
 
-  return flatten(list).join(' ').replace(/ ,/g, ',');
+  return list.flat().join(' ').replace(/ ,/g, ',');
 };
 
 const pathViewportFromAndTo = ({ from, to, pathXYPosition }) => ({
-  width: Math.max(from.x, to.x) - pathXYPosition.x,
-  height: Math.max(from.y, to.y) - pathXYPosition.y,
+  width: Math.max(from.x, to.x) - pathXYPosition.x - window.scrollX,
+  height: Math.max(from.y, to.y) - pathXYPosition.y - window.scrollY,
 });
 
 const pathReducer = (points, reducer) => points.reduce((prev, curr) => {
@@ -48,7 +48,7 @@ const pathReducer = (points, reducer) => points.reduce((prev, curr) => {
   return reducer(prev, curr);
 });
 
-const pathSubstractStartPosition = (points) => {
+const pathSubstractStartPosition = (points, head) => {
   const min = pathReducer(points, (prev, curr) => ({
     x: Math.min(prev.x, curr.x),
     y: Math.min(prev.y, curr.y),
@@ -56,12 +56,14 @@ const pathSubstractStartPosition = (points) => {
 
   return points.map((point) => ({
     ...point,
-    x: point.x - min.x + ARROW_HEAD_SIZE,
-    y: point.y - min.y + ARROW_HEAD_SIZE,
+    x: point.x - min.x + head.width,
+    y: point.y - min.y + head.height,
   }));
 };
 
-const pathListBezier = ({ from, to, pathXYPosition }) => {
+const pathListBezier = ({
+  from, to, pathXYPosition, head,
+}) => {
   const viewport = pathViewportFromAndTo({ from, to, pathXYPosition });
 
   const points = [];
@@ -70,7 +72,7 @@ const pathListBezier = ({ from, to, pathXYPosition }) => {
   points.push(pointBezier(to, viewport));
   points.push(to);
 
-  return pathSubstractStartPosition(points);
+  return pathSubstractStartPosition(points, head);
 };
 
 const windowScroll = () => {
@@ -81,26 +83,29 @@ const windowScroll = () => {
   };
 };
 
-const pathOffset = (points, pathXYPosition) => {
+const pathOffset = (points, pathXYPosition, head) => {
   const minPoint = (prop) => Math.min(
-    points[0][prop] - ARROW_HEAD_SIZE,
-    points[3][prop] - ARROW_HEAD_SIZE,
+    points[0][prop] - head.width,
+    points[3][prop] - head.height,
   );
 
   const scroll = windowScroll();
 
   return {
-    x: pathXYPosition.x - minPoint('x') - ARROW_HEAD_SIZE + scroll.x,
-    y: pathXYPosition.y - minPoint('y') - ARROW_HEAD_SIZE + scroll.y,
+    x: pathXYPosition.x - minPoint('x') - head.width + scroll.x,
+    y: pathXYPosition.y - minPoint('y') - head.height + scroll.y,
   };
 };
 
-const path = (from, to) => {
+const path = (from, to, headParam) => {
+  const head = createHead(headParam);
+
   const pathXYPosition = startPosition(from, to);
   const points = pathListBezier({
-    from: pointAbsolute(from, pathXYPosition),
-    to: pointAbsolute(to, pathXYPosition),
+    from: pointAbsolute(from, pathXYPosition, head),
+    to: pointAbsolute(to, pathXYPosition, head),
     pathXYPosition,
+    head,
   });
 
   const size = pathReducer(points, (prev, curr) => ({
@@ -108,16 +113,21 @@ const path = (from, to) => {
     y: Math.max(prev.y, curr.y),
   }));
 
+  const headBezier = {
+    ...headBezierAngle(head, points),
+    ...headBezierXY(head, points),
+  };
+
   return {
-    offset: pathOffset(points, pathXYPosition),
+    offset: pathOffset(points, pathXYPosition, head),
     size: {
-      width: size.x + ARROW_HEAD_SIZE * 2,
-      height: size.y + ARROW_HEAD_SIZE * 2,
+      width: size.x + head.width * 2,
+      height: size.y + head.height * 2,
     },
     points: pathListSVG(points),
     head: {
-      ...headBezierAngle(1, points),
-      ...headBezierXY(1, points),
+      ...head,
+      ...headBezier,
     },
   };
 };

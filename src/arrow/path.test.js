@@ -15,12 +15,17 @@ test('check pointAbsolute', () => {
     y: 40,
   };
 
+  const head = {
+    width: 10,
+    height: 10,
+  };
+
   const expected = {
     x: 80,
     y: 80,
   };
 
-  expect(pointAbsolute(point, offset)).toStrictEqual(expected);
+  expect(pointAbsolute(point, offset, head)).toStrictEqual(expected);
 });
 
 test('check pointAbsolute with extra props', () => {
@@ -35,13 +40,18 @@ test('check pointAbsolute with extra props', () => {
     y: 120,
   };
 
+  const head = {
+    width: 10,
+    height: 10,
+  };
+
   const expected = {
     x: 210,
     y: 1500,
     translation: [1, -1],
   };
 
-  expect(pointAbsolute(point, offset)).toStrictEqual(expected);
+  expect(pointAbsolute(point, offset, head)).toStrictEqual(expected);
 });
 
 test('check pathListSVG', () => {
@@ -98,5 +108,5 @@ test('path', () => {
     },
   };
 
-  expect(path(ends(from), ends(to))).toStrictEqual(expected);
+  expect(path(ends(from), ends(to))).toMatchObject(expected);
 });
