@@ -45,9 +45,12 @@ const observer = (from, to) => {
     callback = handler;
   };
 
+  const clear = () => clearInterval(timer);
+
   return {
     observe,
     timer,
+    clear,
   };
 };
 

@@ -1,4 +1,4 @@
-export const ARROW_HEAD_SIZE = 10;
+export const HEAD_DEFAULT_SIZE = 10;
 
 export const DIRECTION = {
   TOP_LEFT: 'top-left',

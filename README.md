@@ -33,11 +33,12 @@ const arrow = arrowCreate({
   - arrow.node is HTMLElement
   - arrow.timer is idInterval from setInterval()
     REMEMBER about clearInterval(node.timer) after unmount
+  - it's also possible to clear with arrow.clear()
 */
 document.body.appendChild(arrow.node);
 ```
 
-Could be also used from `window.arrowCreate()`
+Arrow could be also created from `window.arrowCreate()`
 
 ## CSS styles
 Styles should be added to make arrow visible. Feel free to change them.
@@ -59,6 +60,9 @@ Styles should be added to make arrow visible. Feel free to change them.
 }
 ```
 
+### Example styles:
+![Arrow](docs/hello-world.png?raw=true "Arrow example")
+
 # API
 ```typescript
 arrowCreate(path:Path):Arrow
@@ -68,10 +72,11 @@ arrowCreate(path:Path):Arrow
 interface Arrow {
   node: HTMLElement;
   timer: number;
+  clear();
 }
 ```
 
-`timer` should be used to `clearInterval()` of observer.
+`*` `clear()` or `clearInterval(timer)` should be `always` used after removal of Arrow.
 
 ```typescript
 enum Direction {
@@ -105,9 +110,9 @@ interface Point {
 }
 ```
 
-- `point.x` / `point.y` are from / to position,
-- `viewport` is size between points,
-- `point.translation` is array from above.
+`*` `point.x` / `point.y` are from / to position,
+`*` `viewport` is size between points,
+`*` `point.translation` is array from above.
 
 translation could be tested in `test/form/index.html`
 
@@ -118,6 +123,104 @@ interface Path {
   to: Point;
 }
 ```
+
+# Custom head
+
+### example with `diamond` head
+```js
+import arrowCreate, { DIRECTION, HEAD } from 'arrows'
+
+const arrow = arrowCreate({
+  ...,
+  head: HEAD.DIAMOND, // or func: 'diamond' / 'DIAMOND' as string
+})
+
+document.body.appendChild(arrow.node);
+```
+
+___
+
+### example with `diamond` head and specified size
+```js
+import arrowCreate, { DIRECTION, HEAD } from 'arrows'
+
+const arrow = arrowCreate({
+  ...,
+  head: {
+    func: HEAD.DIAMOND,
+    size: 30, // custom options that will be passed to head function    
+  }
+})
+
+document.body.appendChild(arrow.node);
+```
+
+___
+
+### example with `image` head
+
+```js
+import arrowCreate, { DIRECTION, HEAD } from 'arrows'
+
+const arrow = arrowCreate({
+  ...,
+  head: {
+    func: HEAD.IMAGE, // could be just 'image' / 'IMAGE'
+    width: 20, // px
+    height: 30, // px
+    image: 'abc.png', // url of image head
+  }
+})
+
+document.body.appendChild(arrow.node);
+```
+
+___
+
+## Head types
+![Head](docs/heads.png?raw=true "Head types")
+
+`*` Default head size is `10`<br />
+`*` Default head is `thin`
+
+___
+
+## Own head
+```js
+import arrowCreate, { DIRECTION, HEAD } from 'arrows'
+
+const arrow = arrowCreate({
+  ...,
+  head: {
+    func: ({ width }) => { // all passed props from head
+      const SVG_NS = 'http://www.w3.org/2000/svg';
+      const node = document.createElementNS(SVG_NS, 'g');
+
+      // ... bla bla like node.setAttributeNS(...)
+
+      return {
+        node,
+        width: width,
+        height: 25,
+      }
+
+      // OR node could be string like
+      
+      return {
+        node: '<rect x="-10" y="-10" width="20" height="25" />',
+        width: size,
+        height: size,
+      }
+    },
+    width: 30,
+  }
+})
+
+document.body.appendChild(arrow.node);
+```
+
+`*` Return of custom head function always
+require a params like { `node`, `width`, `height` }
 
 # Building
 ```sh
@@ -134,12 +237,9 @@ npm run start
 npm run test
 ```
 
-## Example 1
+## Examples
 ```
 test/form/index.html
-```
-
-## Example 2
-```
 test/interval/index.html
+test/heads/index.html
 ```

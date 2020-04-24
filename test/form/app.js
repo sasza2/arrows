@@ -17,6 +17,10 @@ window.addEventListener('load', function(){
       direction: 'top',
       translation: [0.9, 1],
     },
+    head: {
+      func: 'normal',
+      size: 20,
+    }
   }
 
   const nodes = {
@@ -39,7 +43,7 @@ window.addEventListener('load', function(){
     nodes.to.style.left = arrowProps.to.point.x + 'px'
     nodes.to.style.top = arrowProps.to.point.y + 'px'
 
-    if (arrow) document.body.removeChild(arrow)
+    if (arrow) document.body.removeChild(arrow.node)
     arrow = arrowCreate(arrowProps)
     document.body.appendChild(arrow.node)
   }

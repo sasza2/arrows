@@ -1,13 +1,14 @@
-import isFunction from 'lodash/isFunction';
+import { DIRECTION } from 'consts';
 
-import { DIRECTION } from '../consts';
-
-const endNode = (point) => (isFunction(point.node)
+const endNode = (point) => (typeof point.node === 'function'
   ? point.node()
   : point.node
 );
 
 const endXY = (point) => {
+  const endNodePoint = endNode(point);
+  if (!endNodePoint) throw new Error("point is null, check if 'from'/'to' exists");
+
   const rect = endNode(point).getBoundingClientRect();
   switch (point.direction) {
     case DIRECTION.TOP_LEFT:
