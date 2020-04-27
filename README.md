@@ -10,7 +10,7 @@ npm install arrows-svg
 ```
 # How to use it
 
-https://codesandbox.io/s/relaxed-sara-8iuxr
+https://codesandbox.io/s/brave-haslett-tlmz7
 
 ```js
 import arrowCreate, { DIRECTION } from 'arrows'
@@ -148,7 +148,7 @@ const arrow = arrowCreate({
   ...,
   head: {
     func: HEAD.DIAMOND,
-    size: 30, // custom options that will be passed to head function    
+    size: 30, // custom options that will be passed to head function
   }
 })
 
@@ -181,7 +181,8 @@ ___
 ![Head](docs/heads.png?raw=true "Head types")
 
 `*` Default head size is `10`<br />
-`*` Default head is `thin`
+`*` Default head is `thin`<br />
+`*` `head` has also `distance` param, see more at https://codesandbox.io/s/damp-tdd-3fx91
 
 ___
 
