@@ -43,7 +43,7 @@ window.addEventListener('load', function(){
     nodes.to.style.left = arrowProps.to.point.x + 'px'
     nodes.to.style.top = arrowProps.to.point.y + 'px'
 
-    if (arrow) document.body.removeChild(arrow.node)
+    if (arrow) arrow.clear()
     arrow = arrowCreate(arrowProps)
     document.body.appendChild(arrow.node)
   }

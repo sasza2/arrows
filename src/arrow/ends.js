@@ -1,15 +1,11 @@
 import { DIRECTION } from 'consts';
-
-const endNode = (point) => (typeof point.node === 'function'
-  ? point.node()
-  : point.node
-);
+import nodeValue from 'helpers/nodeValue';
 
 const endXY = (point) => {
-  const endNodePoint = endNode(point);
+  const endNodePoint = nodeValue(point.node);
   if (!endNodePoint) throw new Error("point is null, check if 'from'/'to' exists");
 
-  const rect = endNode(point).getBoundingClientRect();
+  const rect = nodeValue(point.node).getBoundingClientRect();
   switch (point.direction) {
     case DIRECTION.TOP_LEFT:
       return {

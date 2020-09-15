@@ -58,10 +58,16 @@ const arrowCreate = ({
     }
   });
 
+  const clear = () => {
+    watcher.clear();
+    const { parentNode } = node;
+    if (parentNode) parentNode.removeChild(node);
+  };
+
   return {
     node,
     timer: watcher.timer,
-    clear: watcher.clear,
+    clear,
   };
 };
 

@@ -1,3 +1,5 @@
+import nodeValue from 'helpers/nodeValue';
+
 const TO_COMPARE = ['x', 'y', 'width', 'height'];
 
 const comparePositions = (previousPositions, node) => {
@@ -8,11 +10,11 @@ const comparePositions = (previousPositions, node) => {
   };
 };
 
-const nextPositions = ({ previousPositions, from, to }) => {
+const nextPositions = ({ previousPositions, fromNode, toNode }) => {
   const current = {};
 
-  current.from = comparePositions(previousPositions.from, from.node);
-  current.to = comparePositions(previousPositions.to, to.node);
+  current.from = comparePositions(previousPositions.from, fromNode);
+  current.to = comparePositions(previousPositions.to, toNode);
 
   if (current.from.equal && current.to.equal) return null;
 
@@ -27,14 +29,16 @@ const observer = (from, to) => {
   let callback = null;
 
   const timer = setInterval(() => {
+    const fromNode = nodeValue(from.node);
+    const toNode = nodeValue(to.node);
+
     if (
-      !document.body.contains(from.node.parentNode)
-      || !document.body.contains(to.node.parentNode)
+      !fromNode || !toNode || !document.body.contains(fromNode)
+      || !document.body.contains(toNode)
     ) {
-      clearInterval(timer);
       return;
     }
-    const next = nextPositions({ previousPositions, from, to });
+    const next = nextPositions({ previousPositions, fromNode, toNode });
     if (!next) return;
     previousPositions.from = next.from;
     previousPositions.to = next.to;
