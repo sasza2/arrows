@@ -5,7 +5,7 @@ import path from './arrow/path';
 import observer from './observer/observer';
 
 const arrowCreate = ({
-  className = 'arrow', head, from, to,
+  className = 'arrow', head, from, to, onChange,
 }) => {
   const arrow = path(ends(from), ends(to), head);
 
@@ -39,6 +39,8 @@ const arrowCreate = ({
   const watcher = observer(from, to);
   watcher.observe(() => {
     const nextArrow = path(ends(from), ends(to), head);
+
+    if (onChange) onChange(nextArrow);
 
     arrowRef.current.style.top = `${nextArrow.offset.y}px`;
     arrowRef.current.style.left = `${nextArrow.offset.x}px`;

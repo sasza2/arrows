@@ -2,7 +2,7 @@ window.addEventListener('load', function(){
   const types = {
     'diamond': {},
     'dot': {},
-    'image': { 
+    'image': {
       src: './../../docs/npm.png',
       width: 30,
       height: 20,
