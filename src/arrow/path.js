@@ -118,8 +118,21 @@ const path = (from, to, headParam) => {
     ...headBezierXY(head, points),
   };
 
+  const offset = pathOffset(points, pathXYPosition, head);
+
+  const getPointXY = (distance = 1) => {
+    const angle = headBezierAngle({ distance }, points);
+    const position = headBezierXY({ distance }, points);
+
+    return {
+      ...angle,
+      x: position.x + offset.x,
+      y: position.y + offset.y,
+    };
+  };
+
   return {
-    offset: pathOffset(points, pathXYPosition, head),
+    offset,
     size: {
       width: size.x + head.width * 2,
       height: size.y + head.height * 2,
@@ -129,6 +142,7 @@ const path = (from, to, headParam) => {
       ...head,
       ...headBezier,
     },
+    getPointXY,
   };
 };
 

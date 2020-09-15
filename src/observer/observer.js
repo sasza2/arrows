@@ -1,18 +1,18 @@
 const TO_COMPARE = ['x', 'y', 'width', 'height'];
 
-const comparePositions = (prev, node) => {
+const comparePositions = (previousPositions, node) => {
   const rect = node.getBoundingClientRect();
   return {
-    equal: !TO_COMPARE.some((prop) => prev[prop] !== rect[prop]),
+    equal: !TO_COMPARE.some((prop) => previousPositions[prop] !== rect[prop]),
     rect,
   };
 };
 
-const nextPositions = ({ prevs, from, to }) => {
+const nextPositions = ({ previousPositions, from, to }) => {
   const current = {};
 
-  current.from = comparePositions(prevs.from, from.node);
-  current.to = comparePositions(prevs.to, to.node);
+  current.from = comparePositions(previousPositions.from, from.node);
+  current.to = comparePositions(previousPositions.to, to.node);
 
   if (current.from.equal && current.to.equal) return null;
 
@@ -23,7 +23,7 @@ const nextPositions = ({ prevs, from, to }) => {
 };
 
 const observer = (from, to) => {
-  const prevs = { from: {}, to: {} };
+  const previousPositions = { from: {}, to: {} };
   let callback = null;
 
   const timer = setInterval(() => {
@@ -34,10 +34,10 @@ const observer = (from, to) => {
       clearInterval(timer);
       return;
     }
-    const next = nextPositions({ prevs, from, to });
+    const next = nextPositions({ previousPositions, from, to });
     if (!next) return;
-    prevs.from = next.from;
-    prevs.to = next.to;
+    previousPositions.from = next.from;
+    previousPositions.to = next.to;
     if (callback) callback();
   }, 150);
 
