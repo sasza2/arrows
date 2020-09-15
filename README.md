@@ -238,7 +238,7 @@ const arrow = arrowCreate({
 
 /*
   pointXY(distance)
-    - returns { x, y } position at specified
+    - returns { x, y, degree } position at specified
       distance [0, 1] (default 1) of arrow.
       (0) -> arrow start
       (0.5) -> half of arrow
