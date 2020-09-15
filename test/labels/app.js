@@ -13,7 +13,7 @@ window.addEventListener('load', function(){
       direction: 'top',
       translation: [0.9, 1],
     },
-    onChange: ({ getPointXY, ...x }) => {
+    onChange: ({ getPointXY }) => {
       labels.forEach(function(label) {
         const position = getPointXY(parseFloat(label.getAttribute('data-distance')))
         label.style.top = position.y + 'px'
