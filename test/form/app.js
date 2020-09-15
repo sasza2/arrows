@@ -32,7 +32,7 @@ window.addEventListener('load', function(){
   const button = document.querySelector('button')
 
   let arrow = null
-  
+
   function update(){
     const arrowProps = JSON.parse(textarea.value)
     arrowProps.from.node = nodes.from

@@ -16,7 +16,7 @@ window.addEventListener('load', function(){
   function update(){
     const rand = function(){
       return Math.random() * 500 + 'px'
-    }    
+    }
     const translation = function(){
       const once = function(){
         return Math.random() * 2 - 1;
@@ -24,10 +24,10 @@ window.addEventListener('load', function(){
       return [once(), once()]
     }
 
-    arrowProps.from.translation = translation()    
+    arrowProps.from.translation = translation();
     arrowProps.from.node.style.left = rand();
     arrowProps.from.node.style.top = rand();
-    arrowProps.to.translation = translation()
+    arrowProps.to.translation = translation();
     arrowProps.to.node.style.left = rand();
     arrowProps.to.node.style.top = rand();
   }
