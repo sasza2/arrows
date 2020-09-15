@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="./../../dist/main.js"></script>
+    <script src="./app.js"></script>
+    <style>
+      #from, #to {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        font-size: 0px;
+        background-color: red;
+      }
+      #from {
+        top: 100px;
+        left: 50px;
+      }
+      #to {
+        top: 400px;
+        left: 500px;
+      }
+      .arrow {
+        pointer-events: none;
+      }
+      .arrow__path {
+        stroke: #000;
+        fill: transparent;
+        stroke-dasharray: 4 2;
+      }
+      .arrow__head line {
+        stroke: #000;
+        stroke-width: 1px;
+      }
+      .label {
+        position: absolute;
+        top: -100px;
+        z-index: 10;
+      }
+      .label.label-a {
+        color: red;
+      }
+      .label.label-b {
+        color: green;
+        font-size: 30px;
+        transform: translateX(-50%);
+      }
+      .label.label-c {
+        color: violet;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="from"></div>
+    <div id="to"></div>
+    <div class="label label-a" data-distance="0">Start</div>
+    <div class="label label-b" data-distance="0.5" data-rotate="true">half</div>
+    <div class="label label-c" data-distance="1">End</div>
+  </body>
+</html>
