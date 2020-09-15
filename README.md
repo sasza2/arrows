@@ -1,5 +1,5 @@
 # arrows-svg
-Library for creating SVG arrow between two HTML elements. Positions of elements are observed, so when they change arrow will rerender.
+Library for creating SVG arrow between two HTML elements. Positions of elements are observed, so when they change arrow will rerender. There's always react implementation --> <a href="https://www.npmjs.com/package/react-arrows">react-arrows</a>.
 
 ![Arrow](docs/arrow-1.png?raw=true "Arrow example")
 
@@ -56,7 +56,7 @@ Styles should be added to make arrow visible. Feel free to change them.
 
 .arrow__head line {
   stroke: #000;
-  stroke-width: 1px;        
+  stroke-width: 1px;
 }
 ```
 
@@ -121,6 +121,7 @@ interface Path {
   className: string;
   from: Point;
   to: Point;
+  onChange();
 }
 ```
 
@@ -206,7 +207,7 @@ const arrow = arrowCreate({
       }
 
       // OR node could be string like
-      
+
       return {
         node: '<rect x="-10" y="-10" width="20" height="25" />',
         width: size,
@@ -222,6 +223,30 @@ document.body.appendChild(arrow.node);
 
 `*` Return of custom head function always
 require a params like { `node`, `width`, `height` }
+
+___
+
+## Track arrow position
+```js
+import arrowCreate, { DIRECTION } from 'arrows'
+
+const arrow = arrowCreate({
+  onChange: ({ pointXY }) => {
+
+  },
+})
+
+/*
+  pointXY(distance)
+    - returns { x, y } position at specified
+      distance [0, 1] (default 1) of arrow.
+      (0) -> arrow start
+      (0.5) -> half of arrow
+      (1) -> end of arrow
+*/
+```
+
+Example in `test/labels` directory.
 
 # Building
 ```sh
