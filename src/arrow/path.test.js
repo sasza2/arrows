@@ -97,14 +97,14 @@ test('path', () => {
   };
 
   const expected = {
-    offset: { x: -191.25, y: -330 },
-    size: { width: 963.75, height: 1170 },
-    points: 'M 293.75 380 C 10 10, 716.75 1150, 943.75 780',
+    offset: { x: -242.5, y: -380 },
+    size: { width: 1015, height: 1270 },
+    points: 'M 345 430 C 10 10, 727 1250, 995 830',
     head: {
-      degree: -58.442,
-      radius: -1.02,
-      x: 943.75,
-      y: 780,
+      degree: -57.468,
+      radius: -1.003,
+      x: 995,
+      y: 830,
     },
   };
 

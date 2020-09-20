@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="./../../dist/main.js"></script>
+    <script src="./app.js"></script>
+    <style>
+      .arrow {
+        pointer-events: none;
+      }
+      .arrow__path {
+        stroke: #000;
+        fill: transparent;
+        stroke-dasharray: 4 2;
+      }
+      .arrow__head line {
+        stroke: #000;
+        stroke-width: 1px;
+      }
+      .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .container .el {
+        margin: 30px;
+        padding: 10px;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="el">
+        El 1
+      </div>
+      <div class="el">
+        El 2
+      </div>
+      <div class="el">
+        El 3
+      </div>
+      <div class="el">
+        El 4
+      </div>
+      <div class="el">
+        El 5
+      </div>
+    </div>
+  </body>
+</html>

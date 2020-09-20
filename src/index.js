@@ -36,8 +36,7 @@ const arrowCreate = ({
     </svg>
   );
 
-  const watcher = observer(from, to);
-  watcher.observe(() => {
+  const update = () => {
     const nextArrow = path(ends(from), ends(to), head);
 
     if (onChange) onChange(nextArrow);
@@ -56,7 +55,10 @@ const arrowCreate = ({
       headRef.current.removeChild(headRef.current.firstChild);
       headRef.current.appendChild(nextArrow.head.node);
     }
-  });
+  };
+
+  const watcher = observer(from, to);
+  watcher.observe(update);
 
   const clear = () => {
     watcher.clear();
@@ -68,6 +70,7 @@ const arrowCreate = ({
     node,
     timer: watcher.timer,
     clear,
+    update,
   };
 };
 

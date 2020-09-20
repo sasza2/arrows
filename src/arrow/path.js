@@ -38,9 +38,9 @@ export const pathListSVG = (points) => {
   return list.flat().join(' ').replace(/ ,/g, ',');
 };
 
-const pathViewportFromAndTo = ({ from, to, pathXYPosition }) => ({
-  width: Math.max(from.x, to.x) - pathXYPosition.x - window.scrollX,
-  height: Math.max(from.y, to.y) - pathXYPosition.y - window.scrollY,
+const pathViewportFromAndTo = ({ from, to }) => ({
+  width: Math.max(from.x, to.x),
+  height: Math.max(from.y, to.y),
 });
 
 const pathReducer = (points, reducer) => points.reduce((prev, curr) => {
@@ -62,9 +62,9 @@ const pathSubstractStartPosition = (points, head) => {
 };
 
 const pathListBezier = ({
-  from, to, pathXYPosition, head,
+  from, to, head,
 }) => {
-  const viewport = pathViewportFromAndTo({ from, to, pathXYPosition });
+  const viewport = pathViewportFromAndTo({ from, to });
 
   const points = [];
   points.push(from);
@@ -101,10 +101,10 @@ const path = (from, to, headParam) => {
   const head = createHead(headParam);
 
   const pathXYPosition = startPosition(from, to);
+
   const points = pathListBezier({
     from: pointAbsolute(from, pathXYPosition, head),
     to: pointAbsolute(to, pathXYPosition, head),
-    pathXYPosition,
     head,
   });
 
