@@ -60,7 +60,9 @@ const arrowCreate = ({
     if (typeof nextArrow.head.node === 'string') {
       headRef.current.innerHTML = nextArrow.head.node;
     } else {
-      headRef.current.removeChild(headRef.current.firstChild);
+      if (headRef.current.firstChild) {
+        headRef.current.removeChild(headRef.current.firstChild);
+      }
       headRef.current.appendChild(nextArrow.head.node);
     }
   };
