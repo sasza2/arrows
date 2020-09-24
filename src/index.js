@@ -7,7 +7,15 @@ import observer from './observer/observer';
 const arrowCreate = ({
   className = 'arrow', head, from, to, onChange,
 }) => {
-  const arrow = path(ends(from), ends(to), head);
+  const props = {
+    className,
+    head,
+    from,
+    to,
+    onChange,
+  };
+
+  const arrow = path(ends(props.from), ends(props.to), props.head);
 
   const arrowRef = Element.createRef();
   const pathRef = Element.createRef();
@@ -15,7 +23,7 @@ const arrowCreate = ({
 
   const node = (
     <svg
-      className={className}
+      className={props.className}
       ref={arrowRef}
       style={{
         top: arrow.offset.y,
@@ -37,9 +45,9 @@ const arrowCreate = ({
   );
 
   const update = () => {
-    const nextArrow = path(ends(from), ends(to), head);
+    const nextArrow = path(ends(props.from), ends(props.to), props.head);
 
-    if (onChange) onChange(nextArrow);
+    if (props.onChange) props.onChange(nextArrow);
 
     arrowRef.current.style.top = `${nextArrow.offset.y}px`;
     arrowRef.current.style.left = `${nextArrow.offset.x}px`;
@@ -66,11 +74,30 @@ const arrowCreate = ({
     if (parentNode) parentNode.removeChild(node);
   };
 
+  const setProps = (nextProps = {}) => {
+    if (nextProps.from) {
+      watcher.setFrom(nextProps.from);
+      props.from = nextProps.from;
+    }
+
+    if (nextProps.to) {
+      watcher.setFrom(nextProps.to);
+      props.to = nextProps.to;
+    }
+
+    Object.keys(nextProps).forEach((prop) => {
+      props[prop] = nextProps[prop];
+    });
+
+    update();
+  };
+
   return {
     node,
     timer: watcher.timer,
     clear,
     update,
+    setProps,
   };
 };
 
