@@ -1,5 +1,6 @@
 import { DIRECTION } from 'consts';
 import nodeValue from 'helpers/nodeValue';
+import windowScroll from './windowScroll';
 
 const endXY = (point) => {
   const endNodePoint = nodeValue(point.node);
@@ -52,9 +53,17 @@ const endXY = (point) => {
   }
 };
 
-const ends = (point) => ({
-  ...point,
-  ...endXY(point),
-});
+const ends = (point) => {
+  const endPosition = endXY(point);
+
+  const scroll = windowScroll();
+  endPosition.y += scroll.y;
+  endPosition.x += scroll.x;
+
+  return {
+    ...point,
+    ...endPosition,
+  };
+};
 
 export default ends;
