@@ -1,13 +1,22 @@
 import { DIRECTION } from 'consts';
 import nodeValue from 'helpers/nodeValue';
+import { Point, PointArray } from './point'
 import windowScroll from './windowScroll';
 
-const endXY = (point) => {
-  const endNodePoint = nodeValue(point.node);
+export type Anchor = {
+  node: HTMLDocument | (() => HTMLDocument);
+  direction: string;
+  translation: PointArray;
+};
+
+export type AnchorWithPoint = Anchor & Point;
+
+const positionXY = (anchor: Anchor): Point => {
+  const endNodePoint = nodeValue(anchor.node);
   if (!endNodePoint) throw new Error("point is null, check if 'from'/'to' exists");
 
-  const rect = nodeValue(point.node).getBoundingClientRect();
-  switch (point.direction) {
+  const rect = nodeValue(anchor.node).getBoundingClientRect();
+  switch (anchor.direction) {
     case DIRECTION.TOP_LEFT:
       return {
         x: rect.x,
@@ -53,17 +62,17 @@ const endXY = (point) => {
   }
 };
 
-const ends = (point) => {
-  const endPosition = endXY(point);
+const anchorToXY = (anchor: Anchor): AnchorWithPoint => {
+  const position: Point = positionXY(anchor);
 
   const scroll = windowScroll();
-  endPosition.y += scroll.y;
-  endPosition.x += scroll.x;
+  position.y += scroll.y;
+  position.x += scroll.x;
 
   return {
-    ...point,
-    ...endPosition,
+    ...anchor,
+    ...position,
   };
 };
 
-export default ends;
+export default anchorToXY;

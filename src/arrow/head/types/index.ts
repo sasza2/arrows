@@ -1,3 +1,4 @@
+import { HeadGenerated } from '../head'
 import diamond from './diamond';
 import dot from './dot';
 import image from './image';
@@ -7,7 +8,11 @@ import none from './none';
 import thin from './thin';
 import vee from './vee';
 
-const TYPES = {
+type HeadTypes = {
+  [type: string]: (params: any) => HeadGenerated;
+}
+
+const TYPES: HeadTypes = {
   diamond,
   DIAMOND: diamond,
   dot,

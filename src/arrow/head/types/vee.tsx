@@ -1,5 +1,5 @@
+import { h } from 'preact';
 
-import Element from 'jsx/element';
 import { HEAD_DEFAULT_SIZE } from 'consts';
 
 const vee = ({ size = HEAD_DEFAULT_SIZE }) => ({

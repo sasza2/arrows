@@ -20,7 +20,19 @@ window.addEventListener('load', function(){
     head: {
       func: 'normal',
       size: 20,
-    }
+    },
+    tail: [
+      {
+        func: 'normal',
+        size: 15,
+        distance: 0.5,
+      },
+      {
+        func: 'vee',
+        size: 20,
+        distance: 0.01,
+      },
+    ]
   }
 
   const nodes = {

@@ -1,4 +1,5 @@
-import Element from 'jsx/element';
+import { h } from 'preact';
+
 import { HEAD_DEFAULT_SIZE } from 'consts';
 
 const dot = ({ size = HEAD_DEFAULT_SIZE }) => ({

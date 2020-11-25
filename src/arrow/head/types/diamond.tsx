@@ -1,7 +1,9 @@
-import Element from 'jsx/element';
-import { HEAD_DEFAULT_SIZE } from 'consts';
+import { h } from 'preact';
 
-const diamond = ({ size = HEAD_DEFAULT_SIZE }) => ({
+import { HEAD_DEFAULT_SIZE } from 'consts';
+import { HeadGenerated } from '../head'
+
+const diamond = ({ size = HEAD_DEFAULT_SIZE }: { size: number }): HeadGenerated => ({
   node: (
     <g transform={`translate(-${size}, 0)`}>
       <path d={`M${-size} 0 L0 ${-size} L${size} 0 L0 ${size} Z`} />

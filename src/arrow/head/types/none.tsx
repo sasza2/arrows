@@ -1,4 +1,3 @@
-import Element from 'jsx/element';
 import { HEAD_DEFAULT_SIZE } from 'consts';
 
 const none = () => ({

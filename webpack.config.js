@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: { main: './src/index.js' },
+  entry: { main: './src/index.tsx' },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.js',
@@ -9,6 +9,7 @@ module.exports = {
     umdNamedDefine: true
   },
   resolve: {
+    extensions: [ '.tsx', '.ts', '.js' ],
     modules: [
       path.resolve('./src'),
       path.resolve('./node_modules')
@@ -20,12 +21,10 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.tsx?$/,
+        use: 'ts-loader',
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
-      }
-    ]
+      },
+    ],
   }
 };
