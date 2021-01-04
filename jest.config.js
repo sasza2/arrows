@@ -1,6 +1,12 @@
 module.exports = {
-  moduleDirectories: ["src", "node_modules"],
+  roots: ['src'],
   transform: {
-    "^.+\\.js$": "babel-jest"
+    '^.+\\.ts$': 'ts-jest',
+    '^.+\\.tsx$': 'ts-jest',
+  },
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  moduleDirectories: ['node_modules', 'src'],
+  moduleNameMapper: {
+    "src/(.*)": "<rootDir>/src/$1"
   }
 };

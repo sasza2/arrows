@@ -2,12 +2,6 @@ const path = require('path');
 
 module.exports = {
   entry: { main: './src/index.tsx' },
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js',
-    libraryTarget: 'umd',
-    umdNamedDefine: true
-  },
   resolve: {
     extensions: [ '.tsx', '.ts', '.js' ],
     modules: [

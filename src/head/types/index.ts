@@ -1,4 +1,4 @@
-import { HeadGenerated } from '../head'
+import { HeadFunc } from '../head'
 import diamond from './diamond';
 import dot from './dot';
 import image from './image';
@@ -9,7 +9,7 @@ import thin from './thin';
 import vee from './vee';
 
 type HeadTypes = {
-  [type: string]: (params: any) => HeadGenerated;
+  [type: string]: HeadFunc;
 }
 
 const TYPES: HeadTypes = {

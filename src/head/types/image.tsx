@@ -1,11 +1,9 @@
-import { h } from 'preact';
-
-import { HeadGenerated } from '../head'
+import { Head } from '../head'
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const XLINK_NS = 'http://www.w3.org/1999/xlink';
 
-const image = ({ src, width, height }: { src: string, width: number, height: number }): HeadGenerated => {
+const image = ({ src, width, height }: { src: string, width: number, height: number }): Head => {
   if (!src || !width || !height) throw new Error('image requires src, height, width');
 
   const node = document.createElementNS(SVG_NS, 'image');
