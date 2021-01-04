@@ -63,7 +63,7 @@ Styles should be added to make arrow visible. Feel free to change them.
 
 # API
 ```typescript
-arrowCreate(props: IArrowProps):IArrow
+arrowCreate(props: IArrowProps): IArrow
 ```
 
 ```typescript
