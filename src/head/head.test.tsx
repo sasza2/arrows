@@ -158,7 +158,8 @@ test('<Arrow heads />', () => {
           width: 20,
           height: 20,
         }),
-      }
+      },
+      `<svg class="arrow" style="top: 0px; left: 90px; position: absolute;" width="435" height="600"><path class="arrow__path" d="M 20 20 C 103 310, 312 386, 395 560"></path><g class="arrow__head" transform="rotate(64.515, 395, 560), translate(395, 560)"><rect style="fill: green" x="-10px" y="-10px" width="20px" height="20px"></rect></g></svg>`,
     ]
   ];
 
