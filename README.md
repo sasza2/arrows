@@ -67,6 +67,15 @@ arrowCreate(props: IArrowProps): IArrow
 ```
 
 ```typescript
+interface IArrowProps {
+  className?: string,
+  head?: HeadFactory,
+  from: Anchor,
+  to: Anchor,
+}
+```
+
+```typescript
 interface IArrow {
   node: DocumentFragment;
   clear: () => void;
@@ -88,7 +97,7 @@ const DIRECTION = {
 };
 ```
 
-Direction - Position of `Anchor` in HTMLElement from/to.
+`direction` - position of `Anchor` in HTMLElement from/to.
 
 ```typescript
 type Anchor = {
@@ -98,29 +107,7 @@ type Anchor = {
 };
 ```
 
-`translation` is an array of two numbers `[x, y]` like `[-0.5, 1.3]` which are used by Bezier curve. `x` and `y` are offset of Bezier control point. Position of control point is calculated by function:
-
-```javascript
-{
-  x: point.x + viewport.width * point.translation[0],
-  y: point.y + viewport.height * point.translation[1],
-}
-```
-
-`*` `point.x/y` are `from` / `to` position,<br />
-`*` `viewport` is size between points,<br />
-`*` `point.translation` is array from above.
-
-translation could be tested in `test/form/index.html`
-
-```typescript
-interface IArrowProps {
-  className?: string,
-  head?: HeadFactory,
-  from: Anchor,
-  to: Anchor,
-}
-```
+`translation` - is an array of two numbers `[x, y]` like `[-0.5, 1.3]` which are used by Bezier curve. `x` and `y` are offset multiplier of Bezier control point. Translation could be tested in `test/form/index.html`
 
 # Custom head
 
