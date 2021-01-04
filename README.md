@@ -13,7 +13,7 @@ npm install arrows-svg
 https://codesandbox.io/s/brave-haslett-tlmz7
 
 ```js
-import arrowCreate, { DIRECTION } from 'arrows'
+import arrowCreate, { DIRECTION } from 'arrows-svg'
 
 const arrow = arrowCreate({
   className: 'arrow',
@@ -113,7 +113,7 @@ type Anchor = {
 
 ### example with `diamond` head
 ```js
-import arrowCreate, { DIRECTION, HEAD } from 'arrows'
+import arrowCreate, { DIRECTION, HEAD } from 'arrows-svg'
 
 const arrow = arrowCreate({
   ...,
@@ -127,7 +127,7 @@ ___
 
 ### example with `diamond` head and specified size
 ```js
-import arrowCreate, { DIRECTION, HEAD } from 'arrows'
+import arrowCreate, { DIRECTION, HEAD } from 'arrows-svg'
 
 const arrow = arrowCreate({
   ...,
@@ -145,7 +145,7 @@ ___
 ### example with `image` head
 
 ```js
-import arrowCreate, { DIRECTION, HEAD } from 'arrows'
+import arrowCreate, { DIRECTION, HEAD } from 'arrows-svg'
 
 const arrow = arrowCreate({
   ...,
@@ -173,7 +173,7 @@ ___
 
 ## Own head
 ```js
-import arrowCreate, { DIRECTION, HEAD } from 'arrows'
+import arrowCreate, { DIRECTION, HEAD } from 'arrows-svg'
 
 const arrow = arrowCreate({
   ...,
