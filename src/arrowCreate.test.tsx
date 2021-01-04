@@ -117,5 +117,7 @@ test('<Arrow />', async (done) => {
 
   document.body.removeChild(nodeTo);
 
+  await delay(300);
+
   done();
 });
