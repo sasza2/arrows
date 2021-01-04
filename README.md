@@ -36,7 +36,7 @@ const arrow = arrowCreate({
 document.body.appendChild(arrow.node);
 ```
 
-Arrow could be also created from `window.arrowCreate()`
+Arrow could be also created with `window.arrowCreate()` function.
 
 ## CSS styles
 Styles should be added to make arrow visible. Feel free to change them.
@@ -98,7 +98,7 @@ type Anchor = {
 };
 ```
 
-`translation` is array of two numbers `[x, y]` like `[-0.5, 1.3]` which are used by Bezier curve. `x` and `y` are offset of Bezier control point. Position of control point is calculated by function:
+`translation` is an array of two numbers `[x, y]` like `[-0.5, 1.3]` which are used by Bezier curve. `x` and `y` are offset of Bezier control point. Position of control point is calculated by function:
 
 ```javascript
 {
@@ -107,8 +107,8 @@ type Anchor = {
 }
 ```
 
-`*` `point.x` / `point.y` are from / to position,
-`*` `viewport` is size between points,
+`*` `point.x/y` are `from` / `to` position,<br />
+`*` `viewport` is size between points,<br />
 `*` `point.translation` is array from above.
 
 translation could be tested in `test/form/index.html`
