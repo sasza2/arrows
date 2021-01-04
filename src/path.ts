@@ -30,7 +30,6 @@ const pathMinusStartPosition = (path: Path, head: Head) => {
   }));
 
   return path.map((point: Point) => ({
-    // ...point,
     x: point.x - min.x + head.width,
     y: point.y - min.y + head.height,
   }));
