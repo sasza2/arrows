@@ -10,7 +10,7 @@ export type Container = {
   size: Size;
 }
 
-const relativePositionOfPointInContainer = (
+const relativePositionOfAnchor = (
   point: AnchorWithPoint,
   containerPosition: Point,
   head: Head,
@@ -42,8 +42,8 @@ export const produceContainer = (
     y: Math.min(from.y, to.y),
   };
 
-  const relativeFrom = relativePositionOfPointInContainer(from, position, headWithNode)
-  const relativeTo = relativePositionOfPointInContainer(to, position, headWithNode)
+  const relativeFrom = relativePositionOfAnchor(from, position, headWithNode)
+  const relativeTo = relativePositionOfAnchor(to, position, headWithNode)
   const size = containerSize(relativeFrom, relativeTo);
 
   return {
