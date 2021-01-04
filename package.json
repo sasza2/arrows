@@ -25,7 +25,7 @@
   },
   "husky": {
     "hooks": {
-      "todopre-commit": "npm run lint && npm run test"
+      "pre-commit": "npm run lint && npm run test"
     }
   },
   "homepage": "https://github.com/sasza2/arrows#readme",
