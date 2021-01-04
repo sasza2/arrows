@@ -30,7 +30,9 @@ export const Arrow = ({
       transform: headTransformCSS(arrow.head),
     }
 
-    if (typeof arrow.head.node === 'string') return <g {...props} dangerouslySetInnerHTML={{__html: arrow.head.node }} />
+    if (typeof arrow.head.node === 'string') {
+      return <g {...props} dangerouslySetInnerHTML={{__html: arrow.head.node }} />
+    }
 
     const htmlNode = (arrow.head.node as HTMLElement)
     if (htmlNode.tagName) return <g {...props} dangerouslySetInnerHTML={{__html: htmlNode.outerHTML }} />

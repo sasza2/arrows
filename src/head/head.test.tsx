@@ -151,6 +151,15 @@ test('<Arrow heads />', () => {
         func: () => undefined, // invalid head type
       },
     ],
+    [
+      {
+        func: () => ({
+          node: `<rect style="fill: green" x="-10px" y="-10px" width="20px" height="20px" />`,
+          width: 20,
+          height: 20,
+        }),
+      }
+    ]
   ];
 
   const renderHead = (head: HeadFactory, index: number) => render(
