@@ -3,16 +3,16 @@ import { render } from '@testing-library/preact';
 
 import createFakeElement from '../tests/createFakeElement'
 import { Arrow } from '../arrowCreate'
-import { Head, HeadFactory, prepareHead } from './head'
+import { Head, HeadFactory, prepareHeadNode } from './head'
 import TYPES from './types'
 
-test('prepareHead', () => {
+test('Prepare head node', () => {
   const factoryOptions: HeadFactory = {
     func: 'diamond',
     size: 15,
   }
 
-  const head = prepareHead(factoryOptions) as (Head & { size: number, func: string });
+  const head = prepareHeadNode(factoryOptions) as (Head & { size: number, func: string });
 
   expect(head.node).toBeDefined();
   expect(head.width).toBe(15);

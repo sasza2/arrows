@@ -1,6 +1,6 @@
 import { AnchorWithPoint } from './anchor'
 import { produceContainer, Container } from './container'
-import { createHead, prepareHead, Head, HeadFactory, HeadWithPoint } from './head';
+import { createHead, prepareHeadNode, Head, HeadFactory, HeadWithPoint } from './head';
 import { convertPathToSVG, pathListBezier, pathReducer, Path } from './path'
 import { Point } from './point';
 import { Size } from './size'
@@ -39,7 +39,7 @@ const arrowSize = (path: Path, headWithNode: Head): Size => {
 };
 
 const arrowVector = (from: AnchorWithPoint, to: AnchorWithPoint, headFactory: HeadFactory): ArrowVector => {
-  const headWithNode: Head = prepareHead(headFactory);
+  const headWithNode: Head = prepareHeadNode(headFactory);
 
   const container: Container = produceContainer(from, to, headWithNode);
   const path: Path = pathListBezier(container, headWithNode);

@@ -70,7 +70,7 @@ const headToFunction = (head: HeadFactory): HeadFunc => {
   throw new Error('head type is invalid');
 };
 
-export const prepareHead = (head: HeadFactory): Head => {
+export const prepareHeadNode = (head: HeadFactory): Head => {
   const produceHead: HeadFunc = headToFunction(head);
   const headWithNode: Head = produceHead(head);
 
