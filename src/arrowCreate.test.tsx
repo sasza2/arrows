@@ -34,11 +34,11 @@ test('arrowCreate append and clear', async (done) => {
 
   document.body.appendChild(node);
 
-  await delay(200);
+  await delay(300);
 
   clear();
 
-  await delay(200);
+  await delay(300);
 
   clear();
 
@@ -116,8 +116,6 @@ test('<Arrow />', async (done) => {
   await delay(300);
 
   document.body.removeChild(nodeTo);
-
-  await delay(300);
 
   done();
 });
