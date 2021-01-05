@@ -20,5 +20,8 @@ module.exports = {
         exclude: /node_modules/,
       },
     ],
+  },
+  output: {
+    libraryTarget: "umd"
   }
 };
