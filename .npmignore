@@ -1,3 +1,4 @@
+/coverage
 /docs
 /src
 /test
@@ -5,4 +6,6 @@
 .eslintignore
 .eslintrc
 jest.config.js
+tsconfig.eslint.json
+tsconfig.json
 webpack.config.js
