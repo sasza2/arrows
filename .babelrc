@@ -1,16 +1,14 @@
 {
-  "presets": ["@babel/env"],
+  "presets": [
+    "@babel/env",
+    "@babel/typescript"
+  ],
   "plugins": [
     [
       "transform-react-jsx",
       {
-        "pragma": "Element.create"
+        "pragma": "h"
       }
     ]
-  ],
-  "env": {
-    "test": {
-      "plugins": ["@babel/plugin-transform-modules-commonjs"]
-    }
-  }
+  ]
 }

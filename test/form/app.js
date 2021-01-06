@@ -20,7 +20,7 @@ window.addEventListener('load', function(){
     head: {
       func: 'normal',
       size: 20,
-    }
+    },
   }
 
   const nodes = {

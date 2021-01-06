@@ -13,7 +13,7 @@ npm install arrows-svg
 https://codesandbox.io/s/brave-haslett-tlmz7
 
 ```js
-import arrowCreate, { DIRECTION } from 'arrows'
+import arrowCreate, { DIRECTION } from 'arrows-svg'
 
 const arrow = arrowCreate({
   className: 'arrow',
@@ -31,14 +31,12 @@ const arrow = arrowCreate({
 
 /*
   - arrow.node is HTMLElement
-  - arrow.timer is idInterval from setInterval()
-    REMEMBER about clearInterval(node.timer) after unmount
-  - it's also possible to clear with arrow.clear()
+  - remove arrow from DOM with arrow.clear()
 */
 document.body.appendChild(arrow.node);
 ```
 
-Arrow could be also created from `window.arrowCreate()`
+Arrow could be also created with `window.arrowCreate()` function.
 
 ## CSS styles
 Styles should be added to make arrow visible. Feel free to change them.
@@ -65,21 +63,29 @@ Styles should be added to make arrow visible. Feel free to change them.
 
 # API
 ```typescript
-arrowCreate(path:Path):Arrow
+arrowCreate(props: IArrowProps): IArrow
 ```
 
 ```typescript
-interface Arrow {
-  node: HTMLElement;
-  timer: number;
-  clear();
+interface IArrowProps {
+  className?: string,
+  head?: HeadFactory,
+  from: Anchor,
+  to: Anchor,
 }
 ```
 
-`*` `clear()` or `clearInterval(timer)` should be `always` used after removal of Arrow.
+```typescript
+interface IArrow {
+  node: DocumentFragment;
+  clear: () => void;
+}
+```
+
+`*` `clear()` - should be invoked to remove arrow.
 
 ```typescript
-enum Direction {
+const DIRECTION = {
   TOP_LEFT: 'top-left',
   TOP: 'top',
   TOP_RIGHT: 'top-right',
@@ -88,52 +94,30 @@ enum Direction {
   BOTTOM: 'bottom',
   BOTTOM_RIGHT: 'bottom-right',
   LEFT: 'left',
-}
+};
 ```
 
-Direction - Position of `Point` in HTMLElement from/to.
+`direction` - position of `Anchor` in HTMLElement from/to.
 
 ```typescript
-interface Point {
-  direction: Direction;
-  node: HTMLElement;
-  translation: Array<number>;
-}
+type Anchor = {
+  node: HTMLElement | (() => HTMLElement);
+  direction: string;
+  translation: PointArray; // e.g. [1, -0.5]
+};
 ```
 
-`translation` is array of two numbers `[x, y]` like `[-0.5, 1.3]` which are used by Bezier curve. `x` and `y` are offset of Bezier control point. Position of control point is calculated by function:
-
-```javascript
-{
-  x: point.x + viewport.width * point.translation[0],
-  y: point.y + viewport.height * point.translation[1],
-}
-```
-
-`*` `point.x` / `point.y` are from / to position,
-`*` `viewport` is size between points,
-`*` `point.translation` is array from above.
-
-translation could be tested in `test/form/index.html`
-
-```typescript
-interface Path {
-  className: string;
-  from: Point;
-  to: Point;
-  onChange();
-}
-```
+`translation` - is an array of two numbers `[x, y]` like `[-0.5, 1.3]` which are used by Bezier curve. `x` and `y` are offset multiplier of Bezier control point. Translation could be tested in `test/form/index.html`
 
 # Custom head
 
 ### example with `diamond` head
 ```js
-import arrowCreate, { DIRECTION, HEAD } from 'arrows'
+import arrowCreate, { DIRECTION, HEAD } from 'arrows-svg'
 
 const arrow = arrowCreate({
   ...,
-  head: HEAD.DIAMOND, // or func: 'diamond' / 'DIAMOND' as string
+  head: HEAD.DIAMOND, // or { func: 'diamond' }
 })
 
 document.body.appendChild(arrow.node);
@@ -143,7 +127,7 @@ ___
 
 ### example with `diamond` head and specified size
 ```js
-import arrowCreate, { DIRECTION, HEAD } from 'arrows'
+import arrowCreate, { DIRECTION, HEAD } from 'arrows-svg'
 
 const arrow = arrowCreate({
   ...,
@@ -161,7 +145,7 @@ ___
 ### example with `image` head
 
 ```js
-import arrowCreate, { DIRECTION, HEAD } from 'arrows'
+import arrowCreate, { DIRECTION, HEAD } from 'arrows-svg'
 
 const arrow = arrowCreate({
   ...,
@@ -189,7 +173,7 @@ ___
 
 ## Own head
 ```js
-import arrowCreate, { DIRECTION, HEAD } from 'arrows'
+import arrowCreate, { DIRECTION, HEAD } from 'arrows-svg'
 
 const arrow = arrowCreate({
   ...,
@@ -224,29 +208,6 @@ document.body.appendChild(arrow.node);
 `*` Return of custom head function always
 require a params like { `node`, `width`, `height` }
 
-___
-
-## Track arrow position
-```js
-import arrowCreate, { DIRECTION } from 'arrows'
-
-const arrow = arrowCreate({
-  onChange: ({ pointXY }) => {
-
-  },
-})
-
-/*
-  pointXY(distance)
-    - returns { x, y, degree } position at specified
-      distance [0, 1] (default 1) of arrow.
-      (0) -> arrow start
-      (0.5) -> half of arrow
-      (1) -> end of arrow
-*/
-```
-
-Example in `test/labels` directory.
 
 # Building
 ```sh

@@ -1,14 +1,9 @@
 const path = require('path');
 
 module.exports = {
-  entry: { main: './src/index.js' },
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js',
-    libraryTarget: 'umd',
-    umdNamedDefine: true
-  },
+  entry: { main: './src/index.tsx' },
   resolve: {
+    extensions: [ '.tsx', '.ts', '.js' ],
     modules: [
       path.resolve('./src'),
       path.resolve('./node_modules')
@@ -20,12 +15,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.tsx?$/,
+        use: 'ts-loader',
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
-      }
-    ]
+      },
+    ],
+  },
+  output: {
+    libraryTarget: "umd"
   }
 };
