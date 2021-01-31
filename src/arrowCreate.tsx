@@ -26,7 +26,7 @@ export const Arrow = ({
     if (!head.node) return null
 
     const props = {
-      className: `${className}__head`,
+      className: `${className}__head ${className}__head--${head.id}`,
       transform: headTransformCSS(head),
     }
 
