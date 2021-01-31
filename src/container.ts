@@ -1,6 +1,5 @@
 import { AnchorWithPoint } from './anchor'
 import { pointSubtraction, Point } from './point';
-import { Head } from './head';
 import { Size } from './size'
 
 export type Container = {
@@ -13,7 +12,7 @@ export type Container = {
 const relativePositionOfAnchor = (
   point: AnchorWithPoint,
   containerPosition: Point,
-  head: Head,
+  padding: Size,
 ): AnchorWithPoint => pointSubtraction(
   {
     ...point,
@@ -21,8 +20,8 @@ const relativePositionOfAnchor = (
     y: point.y - containerPosition.y,
   },
   {
-    x: -head.width * 2,
-    y: -head.height * 2,
+    x: -padding.width * 2,
+    y: -padding.height * 2,
   },
 );
 
@@ -35,15 +34,15 @@ const containerSize = (relativeFrom: Point, relativeTo: Point): Size => ({
 export const produceContainer = (
   from: AnchorWithPoint,
   to: AnchorWithPoint,
-  headWithNode: Head,
+  padding: Size,
 ): Container => {
   const position: Point = {
     x: Math.min(from.x, to.x),
     y: Math.min(from.y, to.y),
   };
 
-  const relativeFrom = relativePositionOfAnchor(from, position, headWithNode)
-  const relativeTo = relativePositionOfAnchor(to, position, headWithNode)
+  const relativeFrom = relativePositionOfAnchor(from, position, padding)
+  const relativeTo = relativePositionOfAnchor(to, position, padding)
   const size = containerSize(relativeFrom, relativeTo);
 
   return {

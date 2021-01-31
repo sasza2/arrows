@@ -1,6 +1,13 @@
 import { AnchorWithPoint } from './anchor'
 import { produceContainer, Container } from './container'
-import { createHead, prepareHeadNode, Head, HeadFactory, HeadWithPoint } from './head';
+import { 
+  assignPathToHeads,
+  calculateHeadsPadding,
+  prepareHeads,
+  HeadFactory,
+  HeadFactoryList,
+  HeadWithPoint,
+} from './head';
 import { convertPathToSVG, pathListBezier, pathReducer, Path } from './path'
 import { Point } from './point';
 import { Size } from './size'
@@ -9,52 +16,57 @@ type ArrowVector = {
   pathCommands: string;
   size: Size;
   offset: Point;
-  head: HeadWithPoint;
+  heads: HeadWithPoint[];
 };
 
 // <svg style={arrowOffset}, where arrowOffset is { top: x, left: y }
-const arrowOffset = (path: Path, container: Container, head: Head): Point => {
+const arrowOffset = (path: Path, container: Container, padding: Size): Point => {
   const minPoint = (prop: 'x' | 'y') => Math.min(
-    path[0][prop] - head.width,
-    path[3][prop] - head.height,
+    path[0][prop] - padding.width,
+    path[3][prop] - padding.height,
   );
 
   return {
-    x: container.position.x - minPoint('x') - head.width,
-    y: container.position.y - minPoint('y') - head.height,
+    x: container.position.x - minPoint('x') - padding.width,
+    y: container.position.y - minPoint('y') - padding.height,
   };
 };
 
 // <svg width={width} height={height}
-const arrowSize = (path: Path, headWithNode: Head): Size => {
+const arrowSize = (path: Path, padding: Size): Size => {
   const farthestPoint: Point = pathReducer(path, (prev: Point, curr: Point) => ({
     x: Math.max(prev.x, curr.x),
     y: Math.max(prev.y, curr.y),
   }));
 
   return {
-    width: farthestPoint.x + headWithNode.width * 2,
-    height: farthestPoint.y + headWithNode.height * 2,
+    width: farthestPoint.x + padding.width * 2,
+    height: farthestPoint.y + padding.height * 2,
   };
 };
 
-const arrowVector = (from: AnchorWithPoint, to: AnchorWithPoint, headFactory: HeadFactory): ArrowVector => {
-  const headWithNode: Head = prepareHeadNode(headFactory);
+const arrowVector = (
+  from: AnchorWithPoint,
+  to: AnchorWithPoint,
+  headFactory: HeadFactory | HeadFactoryList,
+): ArrowVector => {
+  const preparedHeads = prepareHeads(headFactory);
+  const padding = calculateHeadsPadding(preparedHeads);
 
-  const container: Container = produceContainer(from, to, headWithNode);
-  const path: Path = pathListBezier(container, headWithNode);
+  const container: Container = produceContainer(from, to, padding);
+  const path: Path = pathListBezier(container, padding);
 
-  const head = createHead(headWithNode, path);
+  const heads = assignPathToHeads(preparedHeads, path);
 
   const pathCommands = convertPathToSVG(path);
-  const size = arrowSize(path, headWithNode);
-  const offset = arrowOffset(path, container, headWithNode);
+  const size = arrowSize(path, padding);
+  const offset = arrowOffset(path, container, padding);
 
   return {
     pathCommands,
     size,
     offset,
-    head,
+    heads,
   };
 };
 

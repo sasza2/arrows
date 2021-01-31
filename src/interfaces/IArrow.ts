@@ -1,7 +1,7 @@
 import { RefObject } from 'preact'
 
 import { Anchor } from '../anchor';
-import { HeadFactory } from '../head';
+import { HeadFactory, HeadFactoryList } from '../head';
 
 export interface IArrow {
   node: DocumentFragment;
@@ -10,7 +10,7 @@ export interface IArrow {
 
 export interface IArrowProps {
   className?: string,
-  head?: HeadFactory,
+  head?: HeadFactory | HeadFactoryList,
   from: Anchor,
   to: Anchor,
   forwardRef?: RefObject<SVGSVGElement>,

@@ -1,6 +1,6 @@
 import { Container } from './container'
 import { pointToArray, pointBezier, Point, PointArray } from './point';
-import { Head } from './head';
+import { Size } from './size';
 
 export type Path = Point[];
 
@@ -23,21 +23,21 @@ export const pathReducer = (path: Path, reducer: (prev: Point, curr: Point) => P
   path.reduce((prev, curr) => reducer(prev, curr)
 );
 
-const pathMinusStartPosition = (path: Path, head: Head) => {
+const pathMinusStartPosition = (path: Path, padding: Size) => {
   const min: Point = pathReducer(path, (prev: Point, curr: Point) => ({
     x: Math.min(prev.x, curr.x),
     y: Math.min(prev.y, curr.y),
   }));
 
   return path.map((point: Point) => ({
-    x: point.x - min.x + head.width,
-    y: point.y - min.y + head.height,
+    x: point.x - min.x + padding.width,
+    y: point.y - min.y + padding.height,
   }));
 };
 
 export const pathListBezier = (
   container: Container,
-  head: Head,
+  padding: Size,
 ): Path => {
   const path = [];
   path.push(container.relativeFrom);
@@ -45,5 +45,5 @@ export const pathListBezier = (
   path.push(pointBezier(container.relativeTo, container.size));
   path.push(container.relativeTo);
 
-  return pathMinusStartPosition(path, head);
+  return pathMinusStartPosition(path, padding);
 };
