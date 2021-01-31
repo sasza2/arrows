@@ -210,3 +210,44 @@ test('<Arrow heads />', () => {
 
   flow.forEach(checkHead);
 });
+
+test('<Arrow heads />', () => {
+  const wrapper = render(
+    <div id='arrow'>
+      <Arrow
+        className='arrow'
+        from={{
+          node: createFakeElement({
+            x: 10,
+            y: 20,
+            width: 200,
+            height: 300,
+          }),
+          direction: 'top',
+          translation: [0.2, 0.5],
+        }}
+        to={{
+          node: createFakeElement({
+            x: 410,
+            y: 220,
+            width: 150,
+            height: 340,
+          }),
+          direction: 'bottom',
+          translation: [-0.2, -0.3],
+        }}
+        head={[
+          'vee',
+          {
+            func: 'diamond',
+            distance: 0.5,
+          }
+        ]}
+      />
+    </div>,
+  );
+
+  const svg = wrapper.baseElement.querySelector('#arrow').querySelector('svg');
+
+  expect(svg.outerHTML).toBe(`<svg class="arrow" style="top: 10px; left: 100px; position: absolute;" width="405" height="570"><path class="arrow__path" d="M 10 10 C 89 290, 306 382, 385 550"></path><g class="arrow__head" transform="rotate(64.802, 385, 550), translate(385, 550)"><g transform="translate(-10, 0)"><path d="M-10 -10 L10 0 L-10 10 L0 0 Z"></path></g></g><g class="arrow__head" transform="rotate(46.868, 197.5, 322), translate(197.5, 322)"><g transform="translate(-10, 0)"><path d="M-10 0 L0 -10 L10 0 L0 10 Z"></path></g></g></svg>`);
+})

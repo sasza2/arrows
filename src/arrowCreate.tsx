@@ -5,7 +5,7 @@ import observer from './observer/observer';
 import { IArrow, IArrowProps } from './interfaces/IArrow'
 import arrowVector from './arrowVector';
 import { createAnchorWithPoint } from './anchor';
-import { headTransformCSS, HEAD } from './head';
+import { headTransformCSS, HeadWithPoint, HEAD } from './head';
 
 export const Arrow = ({
   className, head, from, to, forwardRef,
@@ -22,21 +22,21 @@ export const Arrow = ({
     return watcher.clear
   }, [from, head, to]);
 
-  const renderHead = () => {
-    if (!arrow.head.node) return null
+  const renderHead = (head: HeadWithPoint) => {
+    if (!head.node) return null
 
     const props = {
       className: `${className}__head`,
-      transform: headTransformCSS(arrow.head),
+      transform: headTransformCSS(head),
     }
 
-    if (typeof arrow.head.node === 'string') {
-      return <g {...props} dangerouslySetInnerHTML={{__html: arrow.head.node }} />
+    if (typeof head.node === 'string') {
+      return <g key={head.id} {...props} dangerouslySetInnerHTML={{__html: head.node }} />
     }
 
-    const htmlNode = (arrow.head.node as HTMLElement)
+    const htmlNode = (head.node as HTMLElement)
     if (htmlNode.tagName) return <g {...props} dangerouslySetInnerHTML={{__html: htmlNode.outerHTML }} />
-    return <g {...props}>{arrow.head.node}</g>;
+    return <g key={head.id} {...props}>{head.node}</g>;
   }
 
   return (
@@ -52,7 +52,7 @@ export const Arrow = ({
       ref={forwardRef}
     >
       <path className={`${className}__path`} d={arrow.pathCommands} />
-      {renderHead()}
+      {arrow.heads.map(renderHead)}
     </svg>
   );
 };

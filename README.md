@@ -167,7 +167,8 @@ ___
 
 `*` Default head size is `10`<br />
 `*` Default head is `thin`<br />
-`*` `head` has also `distance` param, see more at https://codesandbox.io/s/damp-tdd-3fx91
+`*` `head` has also `distance` param, see more at https://codesandbox.io/s/damp-tdd-3fx91<br />
+`*` `head` could be also an array, see more at `test/heads_multiple`
 
 ___
 

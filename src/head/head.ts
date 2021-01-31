@@ -2,11 +2,13 @@ import { ComponentChild } from 'preact'
 
 import { Path } from '../path'
 import { Point } from '../point'
+import { Size } from '../size'
 import TYPES from './types';
 
 const PRECISION = 1000.0;
 
 export type Head = {
+  id?: number;
   node?: ComponentChild;
   distance?: number;
   height?: number;
@@ -20,6 +22,8 @@ export type HeadFunc = (params: any) => Head;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type HeadFactory = { func: HeadFactory, [key: string]: any } | HeadFunc | string;
+
+export type HeadFactoryList = HeadFactory[]
 
 export type HeadWithPoint = Head & Point;
 
@@ -85,11 +89,27 @@ export const prepareHeadNode = (head: HeadFactory): Head => {
   return headWithNode;
 };
 
-export const createHead = (headWithNode: Head, path: Path): HeadWithPoint => ({
-  ...headWithNode,
-  ...headBezierAngle(headWithNode, path),
-  ...headBezierPoint(headWithNode, path),
-});
+export const prepareHeads = (headFactory: HeadFactory | HeadFactoryList): Head[] => {
+  const headFactoryList = Array.isArray(headFactory)
+    ? headFactory
+    : [headFactory]
+
+  return headFactoryList.map(prepareHeadNode)
+}
+
+export const calculateHeadsPadding = (heads: Head[]): Size => (heads as Size[]).reduce((size, current) => {
+  const nextSize = { width: size.width, height: size.height };
+  if (current.width > nextSize.width) nextSize.width = current.width;
+  if (current.height > nextSize.height) nextSize.height = current.height;
+  return nextSize;
+}, { width: 0, height: 0 })
+
+export const assignPathToHeads = (heads: Head[], path: Path): HeadWithPoint[] => heads.map((head, index) => ({
+  id: index,
+  ...head,
+  ...headBezierAngle(head, path),
+  ...headBezierPoint(head, path),
+}))
 
 export const headTransformCSS = (head: HeadWithPoint): string => (
   `rotate(${(head.degree)}, ${head.x}, ${head.y}), translate(${head.x}, ${head.y})`
