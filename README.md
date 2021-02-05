@@ -117,7 +117,7 @@ type Anchor = {
 } | HTMLElement | (() => HTMLElement);
 ```
 
-`translation` - is an array of two numbers `[x, y]` like `[-0.5, 1.3]` which are used by Bezier curve. `x` and `y` are offset multiplier of Bezier control point. Translation could be tested in `test/form/index.html`
+`translation` - is an array of two numbers `[x, y]` like `[-0.5, 1.3]` which are used by Bezier curve. `x` and `y` are offset multiplier of Bezier control point. Translation could be tested in `examples/form/index.html`
 
 `node` - if HTMLElement still doesn't exist in DOM, try to pass is a function `() => node`.
 
@@ -180,7 +180,7 @@ ___
 `*` Default head size is `10`<br />
 `*` Default head is `thin`<br />
 `*` `head` has also `distance` param, see more at https://codesandbox.io/s/damp-tdd-3fx91<br />
-`*` `head` could be also an array, see more at `test/heads_multiple`
+`*` `head` could be also an array, see more at `examples/heads_multiple`
 
 ___
 
@@ -235,11 +235,4 @@ npm run start
 # Testing
 ```sh
 npm run test
-```
-
-## Examples
-```
-test/form/index.html
-test/interval/index.html
-test/heads/index.html
 ```
