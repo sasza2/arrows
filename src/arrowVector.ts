@@ -1,4 +1,4 @@
-import { AnchorWithPoint } from './anchor'
+import { autoAnchorWithPoint, AnchorWithPoint } from './anchor'
 import { produceContainer, Container } from './container'
 import { 
   assignPathToHeads,
@@ -53,7 +53,11 @@ const arrowVector = (
   const preparedHeads = prepareHeads(headFactory);
   const padding = calculateHeadsPadding(preparedHeads);
 
-  const container: Container = produceContainer(from, to, padding);
+  const container: Container = produceContainer(
+    autoAnchorWithPoint(from, to),
+    autoAnchorWithPoint(to, from),
+    padding,
+  );
   const path: Path = pathListBezier(container, padding);
 
   const heads = assignPathToHeads(preparedHeads, path);

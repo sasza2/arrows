@@ -2,19 +2,19 @@ import { createRef, h, render } from 'preact'
 import { useEffect, useState } from 'preact/hooks'
 
 import observer from './observer/observer';
-import { IArrow, IArrowProps } from './interfaces/IArrow'
+import { IArrow, IArrowProps, IArrowComponentProps } from './interfaces/IArrow'
 import arrowVector from './arrowVector';
 import { createAnchorWithPoint } from './anchor';
 import { headTransformCSS, HeadWithPoint, HEAD } from './head';
 
 export const Arrow = ({
   className, head, from, to, forwardRef,
-}: IArrowProps): JSX.Element => {
-  const [arrow, setArrow] = useState(() => arrowVector(createAnchorWithPoint(from), createAnchorWithPoint(to), head));
+}: IArrowComponentProps): JSX.Element => {
+  const [arrow, setArrow] = useState(() => arrowVector(from, to, head));
 
   useEffect(() => {
     const update = () => {
-      const nextArrow = arrowVector(createAnchorWithPoint(from), createAnchorWithPoint(to), head);
+      const nextArrow = arrowVector(from, to, head);
       setArrow(nextArrow);
     };
 
@@ -63,12 +63,15 @@ const arrowCreate = ({
   const arrowRef = createRef<SVGSVGElement>()
   const node = document.createDocumentFragment();
 
+  if (!from) throw new Error('undefined from, try to pass it as from={() => ...}')
+  if (!to) throw new Error('undefined to, try to pass it as to={() => ...}')
+
   render(
     <Arrow
       className={className}
       head={head}
-      from={from}
-      to={to}
+      from={createAnchorWithPoint(from)}
+      to={createAnchorWithPoint(to)}
       forwardRef={arrowRef}
     />,
     node,

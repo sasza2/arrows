@@ -3,6 +3,7 @@ import { render } from '@testing-library/preact';
 
 import createFakeElement from '../tests/createFakeElement'
 import { Arrow } from '../arrowCreate'
+import { createAnchorWithPoint } from '../anchor'
 import { Head, HeadFactory, prepareHeadNode } from './head'
 import TYPES from './types'
 
@@ -167,7 +168,7 @@ test('<Arrow heads />', () => {
     <div id={`arrow-${index}`}>
       <Arrow
         className='arrow'
-        from={{
+        from={createAnchorWithPoint({
           node: createFakeElement({
             x: 10,
             y: 20,
@@ -176,8 +177,8 @@ test('<Arrow heads />', () => {
           }),
           direction: 'top',
           translation: [0.2, 0.5],
-        }}
-        to={{
+        })}
+        to={createAnchorWithPoint({
           node: createFakeElement({
             x: 410,
             y: 220,
@@ -186,7 +187,7 @@ test('<Arrow heads />', () => {
           }),
           direction: 'bottom',
           translation: [-0.2, -0.3],
-        }}
+        })}
         head={head}
       />
     </div>,
@@ -216,7 +217,7 @@ test('<Arrow heads />', () => {
     <div id='arrow'>
       <Arrow
         className='arrow'
-        from={{
+        from={createAnchorWithPoint({
           node: createFakeElement({
             x: 10,
             y: 20,
@@ -225,8 +226,8 @@ test('<Arrow heads />', () => {
           }),
           direction: 'top',
           translation: [0.2, 0.5],
-        }}
-        to={{
+        })}
+        to={createAnchorWithPoint({
           node: createFakeElement({
             x: 410,
             y: 220,
@@ -235,7 +236,7 @@ test('<Arrow heads />', () => {
           }),
           direction: 'bottom',
           translation: [-0.2, -0.3],
-        }}
+        })}
         head={[
           'vee',
           {

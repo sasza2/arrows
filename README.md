@@ -16,17 +16,8 @@ https://codesandbox.io/s/brave-haslett-tlmz7
 import arrowCreate, { DIRECTION } from 'arrows-svg'
 
 const arrow = arrowCreate({
-  className: 'arrow',
-  from: {
-    direction: DIRECTION.TOP,
-    node: document.getElementById('from'),
-    translation: [-0.5, -1],
-  },
-  to: {
-    direction: DIRECTION.RIGHT,
-    node: document.getElementById('to'),
-    translation: [0.9, 1],
-  },
+  from: document.getElementById('from'),
+  to: document.getElementById('to'),
 })
 
 /*
@@ -60,6 +51,25 @@ Styles should be added to make arrow visible. Feel free to change them.
 
 ### Example styles:
 ![Arrow](docs/hello-world.png?raw=true "Arrow example")
+
+# Controlling arrow curve
+```js
+import arrowCreate, { DIRECTION } from 'arrows-svg'
+
+const arrow = arrowCreate({
+  className: 'arrow',
+  from: {
+    direction: DIRECTION.TOP,
+    node: document.getElementById('from'),
+    translation: [-0.5, -1],
+  },
+  to: {
+    direction: DIRECTION.RIGHT,
+    node: document.getElementById('to'),
+    translation: [0.9, 1],
+  },
+})
+```
 
 # API
 ```typescript
@@ -104,10 +114,12 @@ type Anchor = {
   node: HTMLElement | (() => HTMLElement);
   direction: string;
   translation: PointArray; // e.g. [1, -0.5]
-};
+} | HTMLElement | (() => HTMLElement);
 ```
 
 `translation` - is an array of two numbers `[x, y]` like `[-0.5, 1.3]` which are used by Bezier curve. `x` and `y` are offset multiplier of Bezier control point. Translation could be tested in `test/form/index.html`
+
+`node` - if HTMLElement still doesn't exist in DOM, try to pass is a function `() => node`.
 
 # Custom head
 
@@ -172,7 +184,7 @@ ___
 
 ___
 
-## Own head
+## Custom head
 ```js
 import arrowCreate, { DIRECTION, HEAD } from 'arrows-svg'
 

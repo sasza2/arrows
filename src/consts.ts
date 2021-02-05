@@ -10,3 +10,5 @@ export const DIRECTION = {
   BOTTOM_RIGHT: 'bottom-right',
   LEFT: 'left',
 };
+
+export const TRANSLATION_DEFAULT = 0.3

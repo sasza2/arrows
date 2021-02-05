@@ -1,8 +1,7 @@
 const nodeValue = (node: HTMLElement | (() => HTMLElement)): HTMLElement => {
-  const nodeSelected = (typeof node === 'function'
+  const nodeSelected = typeof node === 'function'
     ? node()
-    : node
-  );
+    : node;
 
   if (!document.body.contains(nodeSelected)) return null;
 

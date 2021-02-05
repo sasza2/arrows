@@ -4,6 +4,9 @@
     <script src="./../../dist/main.js"></script>
     <script src="./app.js"></script>
     <style>
+      body {
+        background-color: #272b30;
+      }
       #from, #to {
         position: absolute;
         font-size: 0px;
@@ -22,22 +25,35 @@
         height: 150px;
         border: 2px solid violet;
       }
+      .dot {
+        float: left;
+        margin: 42px;
+        width: 15px;
+        height: 15px;
+        background-color: #0069ab;
+        border-radius: 50%;
+      }
+      .dot--selected {
+        background-color: #fcc90f;
+      }
       .arrow {
         pointer-events: none;
       }
       .arrow__path {
-        stroke: #000;
+        stroke: #f77129;
+        stroke-width: 5px;
         fill: transparent;
-        stroke-dasharray: 4 2;
       }
       .arrow__head line {
-        stroke: #000;
-        stroke-width: 1px;
+        stroke: #f77129;
+        stroke-width: 5px;
+      }
+      #container {
+        width: 1000px;
       }
     </style>
   </head>
   <body>
-    <div id="from"></div>
-    <div id="to"></div>
+    <div id="container"></div>
   </body>
 </html>
