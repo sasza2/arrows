@@ -119,7 +119,7 @@ type Anchor = {
 
 `translation` - is an array of two numbers `[x, y]` like `[-0.5, 1.3]` which are used by Bezier curve. `x` and `y` are offset multiplier of Bezier control point. Translation could be tested in `examples/form/index.html`
 
-`node` - if HTMLElement still doesn't exist in DOM, try to pass is a function `() => node`.
+`node` - if HTMLElement still doesn't exist in DOM, try to pass it as a function `() => node`.
 
 # Custom head
 

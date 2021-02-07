@@ -1,8 +1,10 @@
 import nodeValue from './helpers/nodeValue';
 import { getScrollPoint } from './helpers/window';
-import { DIRECTION, TRANSLATION_DEFAULT } from './consts';
+import { DIRECTION } from './consts';
 import { Point, PointArray } from './point'
 import { Size } from './size'
+
+const TRANSLATION_DEFAULT = 0.3
 
 export type Anchor = {
   node: HTMLElement | (() => HTMLElement);
