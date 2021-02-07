@@ -1,5 +1,5 @@
 # arrows-svg
-Library for creating SVG arrow between two HTML elements. Positions of elements are observed, so when they change arrow will rerender. There's always react implementation --> <a href="https://www.npmjs.com/package/react-arrows">react-arrows</a>.
+Library for creating SVG arrow between two HTML elements. Positions of elements are observed, so when they change arrow will rerender. There's also react implementation --> <a href="https://www.npmjs.com/package/react-arrows">react-arrows</a>.
 
 ![Arrow](docs/arrow-1.png?raw=true "Arrow example")
 
@@ -16,17 +16,8 @@ https://codesandbox.io/s/brave-haslett-tlmz7
 import arrowCreate, { DIRECTION } from 'arrows-svg'
 
 const arrow = arrowCreate({
-  className: 'arrow',
-  from: {
-    direction: DIRECTION.TOP,
-    node: document.getElementById('from'),
-    translation: [-0.5, -1],
-  },
-  to: {
-    direction: DIRECTION.RIGHT,
-    node: document.getElementById('to'),
-    translation: [0.9, 1],
-  },
+  from: document.getElementById('from'),
+  to: document.getElementById('to'),
 })
 
 /*
@@ -84,6 +75,25 @@ interface IArrow {
 
 `*` `clear()` - should be invoked to remove arrow.
 
+# Controlling arrow curve
+```js
+import arrowCreate, { DIRECTION } from 'arrows-svg'
+
+const arrow = arrowCreate({
+  className: 'arrow',
+  from: {
+    direction: DIRECTION.TOP,
+    node: document.getElementById('from'),
+    translation: [-0.5, -1],
+  },
+  to: {
+    direction: DIRECTION.RIGHT,
+    node: document.getElementById('to'),
+    translation: [0.9, 1],
+  },
+})
+```
+
 ```typescript
 const DIRECTION = {
   TOP_LEFT: 'top-left',
@@ -104,10 +114,12 @@ type Anchor = {
   node: HTMLElement | (() => HTMLElement);
   direction: string;
   translation: PointArray; // e.g. [1, -0.5]
-};
+} | HTMLElement | (() => HTMLElement);
 ```
 
-`translation` - is an array of two numbers `[x, y]` like `[-0.5, 1.3]` which are used by Bezier curve. `x` and `y` are offset multiplier of Bezier control point. Translation could be tested in `test/form/index.html`
+`translation` - is an array of two numbers `[x, y]` like `[-0.5, 1.3]` which are used by Bezier curve. `x` and `y` are offset multiplier of Bezier control point. Translation could be tested in `examples/form/index.html`
+
+`node` - if HTMLElement still doesn't exist in DOM, try to pass it as a function `() => node`.
 
 # Custom head
 
@@ -168,11 +180,11 @@ ___
 `*` Default head size is `10`<br />
 `*` Default head is `thin`<br />
 `*` `head` has also `distance` param, see more at https://codesandbox.io/s/damp-tdd-3fx91<br />
-`*` `head` could be also an array, see more at `test/heads_multiple`
+`*` `head` could be also an array, see more at `examples/heads_multiple`
 
 ___
 
-## Own head
+## Custom head
 ```js
 import arrowCreate, { DIRECTION, HEAD } from 'arrows-svg'
 
@@ -225,9 +237,5 @@ npm run start
 npm run test
 ```
 
-## Examples
-```
-test/form/index.html
-test/interval/index.html
-test/heads/index.html
-```
+# Examples
+in ./examples directory

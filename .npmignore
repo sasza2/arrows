@@ -1,7 +1,7 @@
 /coverage
 /docs
 /src
-/test
+/examples
 .babelrc
 .eslintignore
 .eslintrc.js

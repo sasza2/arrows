@@ -11,6 +11,13 @@ export interface IArrow {
 export interface IArrowProps {
   className?: string,
   head?: HeadFactory | HeadFactoryList,
+  from: Anchor | HTMLElement | (() => HTMLElement),
+  to: Anchor | HTMLElement | (() => HTMLElement),
+}
+
+export interface IArrowComponentProps {
+  className: string,
+  head?: HeadFactory | HeadFactoryList,
   from: Anchor,
   to: Anchor,
   forwardRef?: RefObject<SVGSVGElement>,

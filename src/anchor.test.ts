@@ -92,14 +92,8 @@ test('createAnchorWithPoint test with wrong direction', () => {
     translation: [0.5, 1],
   };
 
-  let hadException = false
-  try {
-    createAnchorWithPoint(anchor)
-  } catch (e) {
-    hadException = true
-  }
-
-  expect(hadException).toBeTruthy()
+  const anchorWithPoint = createAnchorWithPoint(anchor);
+  expect(anchorWithPoint).toMatchObject({ x: 775, y: 525 });
 });
 
 test('createAnchorWithPoint null point', () => {

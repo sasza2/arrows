@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="./../../dist/main.js"></script>
+    <script src="./app.js"></script>
+    <style>
+      #from, #to {
+        position: absolute;
+        font-size: 0px;
+      }
+      #from {
+        top: 70px;
+        left: 540px;
+        width: 50px;
+        height: 90px;
+        border: 2px solid green;
+      }
+      #to {
+        top: 50px;
+        left: 30px;
+        width: 150px;
+        height: 150px;
+        border: 2px solid violet;
+      }
+      .arrow {
+        pointer-events: none;
+      }
+      .arrow__path {
+        stroke: #000;
+        fill: transparent;
+        stroke-dasharray: 4 2;
+      }
+      .arrow__head line {
+        stroke: #000;
+        stroke-width: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="from"></div>
+    <div id="to"></div>
+  </body>
+</html>
