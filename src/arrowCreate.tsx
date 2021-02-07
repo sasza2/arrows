@@ -4,7 +4,7 @@ import { useEffect, useState } from 'preact/hooks'
 import observer from './observer/observer';
 import { IArrow, IArrowProps, IArrowComponentProps } from './interfaces/IArrow'
 import arrowVector from './arrowVector';
-import { createAnchorWithPoint } from './anchor';
+import { castToAnchor } from './anchor';
 import { headTransformCSS, HeadWithPoint, HEAD } from './head';
 
 export const Arrow = ({
@@ -13,11 +13,7 @@ export const Arrow = ({
   const [arrow, setArrow] = useState(() => arrowVector(from, to, head));
 
   useEffect(() => {
-    const update = () => {
-      const nextArrow = arrowVector(from, to, head);
-      setArrow(nextArrow);
-    };
-
+    const update = () => setArrow(arrowVector(from, to, head))
     const watcher = observer(from, to, update);
     return watcher.clear
   }, [from, head, to]);
@@ -70,8 +66,8 @@ const arrowCreate = ({
     <Arrow
       className={className}
       head={head}
-      from={createAnchorWithPoint(from)}
-      to={createAnchorWithPoint(to)}
+      from={castToAnchor(from)}
+      to={castToAnchor(to)}
       forwardRef={arrowRef}
     />,
     node,

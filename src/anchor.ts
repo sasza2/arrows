@@ -66,7 +66,7 @@ const getAnchorPoint = (anchor: Anchor): Point => {
   }
 };
 
-const castToAnchor = (anchorParam: Anchor | HTMLElement | (() => HTMLElement)) => {
+export const castToAnchor = (anchorParam: Anchor | HTMLElement | (() => HTMLElement)): Anchor => {
   if (typeof anchorParam === 'function' || anchorParam instanceof HTMLElement) return {
     node: anchorParam,
   }

@@ -4,6 +4,7 @@ import { Measure } from '../measure'
 
 const ATTRIBUTES_TO_COMPARE = ['x', 'y', 'width', 'height'];
 const DEFAULT_REFRESH_TIME = 150; // ms
+const INITIAL_MEASURES: MemoMeasures = { from: null, to: null };
 
 type MeasureAttribute = 'x' | 'y' | 'width' | 'height'
 
@@ -44,7 +45,7 @@ const produceNextMeasures = (
 };
 
 const observer = (from: Anchor, to: Anchor, update: () => void): Observer => {
-  let currentMeasures: MemoMeasures = { from: null, to: null };
+  let currentMeasures: MemoMeasures = INITIAL_MEASURES;
 
   const timer = setInterval(() => {
     const fromNode = nodeValue(from.node);
@@ -55,9 +56,9 @@ const observer = (from: Anchor, to: Anchor, update: () => void): Observer => {
     const nextMeasures = produceNextMeasures(currentMeasures, fromNode, toNode);
     if (!nextMeasures) return;
 
-    currentMeasures = nextMeasures;
+    if (currentMeasures !== INITIAL_MEASURES) update();
 
-    update();
+    currentMeasures = nextMeasures;
   }, DEFAULT_REFRESH_TIME);
 
   const clear = () => clearInterval(timer);

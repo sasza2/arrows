@@ -1,6 +1,6 @@
 import { RefObject } from 'preact'
 
-import { Anchor, AnchorWithPoint } from '../anchor';
+import { Anchor } from '../anchor';
 import { HeadFactory, HeadFactoryList } from '../head';
 
 export interface IArrow {
@@ -13,13 +13,12 @@ export interface IArrowProps {
   head?: HeadFactory | HeadFactoryList,
   from: Anchor | HTMLElement | (() => HTMLElement),
   to: Anchor | HTMLElement | (() => HTMLElement),
-  forwardRef?: RefObject<SVGSVGElement>,
 }
 
 export interface IArrowComponentProps {
-  className?: string,
+  className: string,
   head?: HeadFactory | HeadFactoryList,
-  from: AnchorWithPoint,
-  to: AnchorWithPoint,
+  from: Anchor,
+  to: Anchor,
   forwardRef?: RefObject<SVGSVGElement>,
 }

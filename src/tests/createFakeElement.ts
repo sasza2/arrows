@@ -7,7 +7,7 @@ const createFakeElement = (measure: Measure): HTMLElement => {
   element.style.top = `${measure.y}px`;
   element.style.width = `${measure.width}px`;
   element.style.height = `${measure.height}px`;
-  element.getBoundingClientRect = () => measure as DOMRect;
+  element.getBoundingClientRect = () => ({ ...measure as DOMRect })
 
   document.body.appendChild(element);
 
