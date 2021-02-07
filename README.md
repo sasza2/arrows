@@ -1,5 +1,5 @@
 # arrows-svg
-Library for creating SVG arrow between two HTML elements. Positions of elements are observed, so when they change arrow will rerender. There's always react implementation --> <a href="https://www.npmjs.com/package/react-arrows">react-arrows</a>.
+Library for creating SVG arrow between two HTML elements. Positions of elements are observed, so when they change arrow will rerender. There's also react implementation --> <a href="https://www.npmjs.com/package/react-arrows">react-arrows</a>.
 
 ![Arrow](docs/arrow-1.png?raw=true "Arrow example")
 
@@ -52,25 +52,6 @@ Styles should be added to make arrow visible. Feel free to change them.
 ### Example styles:
 ![Arrow](docs/hello-world.png?raw=true "Arrow example")
 
-# Controlling arrow curve
-```js
-import arrowCreate, { DIRECTION } from 'arrows-svg'
-
-const arrow = arrowCreate({
-  className: 'arrow',
-  from: {
-    direction: DIRECTION.TOP,
-    node: document.getElementById('from'),
-    translation: [-0.5, -1],
-  },
-  to: {
-    direction: DIRECTION.RIGHT,
-    node: document.getElementById('to'),
-    translation: [0.9, 1],
-  },
-})
-```
-
 # API
 ```typescript
 arrowCreate(props: IArrowProps): IArrow
@@ -93,6 +74,25 @@ interface IArrow {
 ```
 
 `*` `clear()` - should be invoked to remove arrow.
+
+# Controlling arrow curve
+```js
+import arrowCreate, { DIRECTION } from 'arrows-svg'
+
+const arrow = arrowCreate({
+  className: 'arrow',
+  from: {
+    direction: DIRECTION.TOP,
+    node: document.getElementById('from'),
+    translation: [-0.5, -1],
+  },
+  to: {
+    direction: DIRECTION.RIGHT,
+    node: document.getElementById('to'),
+    translation: [0.9, 1],
+  },
+})
+```
 
 ```typescript
 const DIRECTION = {
@@ -236,3 +236,6 @@ npm run start
 ```sh
 npm run test
 ```
+
+# Examples
+in ./examples directory
