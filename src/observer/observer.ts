@@ -13,7 +13,14 @@ type MemoMeasures = {
   to: Measure;
 }
 
-type Observer = {
+type Observer = (
+  from: Anchor,
+  to: Anchor,
+  options: {
+    update: () => void,
+    updateDelay?: number,
+  },
+) => {
   clear: () => void;
 }
 
@@ -44,7 +51,7 @@ const produceNextMeasures = (
   };
 };
 
-const observer = (from: Anchor, to: Anchor, update: () => void): Observer => {
+const observer: Observer = (from, to, { updateDelay = DEFAULT_REFRESH_TIME, update }) => {
   let currentMeasures: MemoMeasures = INITIAL_MEASURES;
 
   const timer = setInterval(() => {
@@ -59,7 +66,7 @@ const observer = (from: Anchor, to: Anchor, update: () => void): Observer => {
     if (currentMeasures !== INITIAL_MEASURES) update();
 
     currentMeasures = nextMeasures;
-  }, DEFAULT_REFRESH_TIME);
+  }, updateDelay);
 
   const clear = () => clearInterval(timer);
 

@@ -8,15 +8,15 @@ import { castToAnchor } from './anchor';
 import { headTransformCSS, HeadWithPoint, HEAD } from './head';
 
 export const Arrow = ({
-  className, head, from, to, forwardRef,
+  className, head, from, to, forwardRef, updateDelay,
 }: IArrowComponentProps): JSX.Element => {
   const [arrow, setArrow] = useState(() => arrowVector(from, to, head));
 
   useEffect(() => {
     const update = () => setArrow(arrowVector(from, to, head))
-    const watcher = observer(from, to, update);
+    const watcher = observer(from, to, { update, updateDelay });
     return watcher.clear
-  }, [from, head, to]);
+  }, [from, head, to, updateDelay]);
 
   const renderHead = (head: HeadWithPoint) => {
     if (!head.node) return null
@@ -54,7 +54,7 @@ export const Arrow = ({
 };
 
 const arrowCreate = ({
-  className = 'arrow', head = HEAD.THIN, from, to,
+  className = 'arrow', head = HEAD.THIN, from, to, updateDelay,
 }: IArrowProps): IArrow => {
   const arrowRef = createRef<SVGSVGElement>()
   const node = document.createDocumentFragment();
@@ -69,6 +69,7 @@ const arrowCreate = ({
       from={castToAnchor(from)}
       to={castToAnchor(to)}
       forwardRef={arrowRef}
+      updateDelay={updateDelay}
     />,
     node,
   );

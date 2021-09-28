@@ -13,6 +13,7 @@ export interface IArrowProps {
   head?: HeadFactory | HeadFactoryList,
   from: Anchor | HTMLElement | (() => HTMLElement),
   to: Anchor | HTMLElement | (() => HTMLElement),
+  updateDelay?: number,
 }
 
 export interface IArrowComponentProps {
@@ -21,4 +22,5 @@ export interface IArrowComponentProps {
   from: Anchor,
   to: Anchor,
   forwardRef?: RefObject<SVGSVGElement>,
+  updateDelay?: number,
 }
