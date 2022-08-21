@@ -1,6 +1,7 @@
 import { h } from 'preact';
 import { render } from '@testing-library/preact';
 
+import { IArrowProps } from './interfaces/IArrow'
 import createFakeElement from './tests/createFakeElement'
 import delay from './tests/delay'
 import arrowCreate, { Arrow } from './arrowCreate'
@@ -47,7 +48,7 @@ test('arrowCreate append and clear', async (done) => {
 });
 
 test('arrowCreate append and clear', () => {
-  const { node, clear } = arrowCreate({
+  const props: IArrowProps = {
     from: {
       node: createFakeElement({
         x: 10,
@@ -69,11 +70,18 @@ test('arrowCreate append and clear', () => {
       translation: [-0.2, -0.3],
     },
     head: HEAD.DOT,
-  });
+  }
 
-  document.body.appendChild(node);
+  let arrow = arrowCreate(props);
 
-  clear();
+  document.body.appendChild(arrow.node);
+
+  arrow.clear();
+
+  props.updateDelay = 0
+  arrow = arrowCreate(props);
+
+  arrow.clear();
 });
 
 test('<Arrow />', async (done) => {
