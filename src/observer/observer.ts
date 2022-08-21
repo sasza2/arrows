@@ -54,7 +54,7 @@ const produceNextMeasures = (
 const observer: Observer = (from, to, { updateDelay = DEFAULT_REFRESH_TIME, update }) => {
   let currentMeasures: MemoMeasures = INITIAL_MEASURES;
 
-  const timer = setInterval(() => {
+  const checkMeasures = () => {
     const fromNode = nodeValue(from.node);
     const toNode = nodeValue(to.node);
 
@@ -66,11 +66,22 @@ const observer: Observer = (from, to, { updateDelay = DEFAULT_REFRESH_TIME, upda
     if (currentMeasures !== INITIAL_MEASURES) update();
 
     currentMeasures = nextMeasures;
-  }, updateDelay);
+  }
 
-  const clear = () => clearInterval(timer);
+  if (updateDelay) {
+    const timer = setInterval(checkMeasures, updateDelay);
+    return { clear: () => clearInterval(timer) }
+  }
 
-  return { clear };
+  let animationFrameId: number
+
+  const animationFrame = () => {
+    checkMeasures()
+    animationFrameId = requestAnimationFrame(animationFrame)
+  }
+
+  animationFrameId = requestAnimationFrame(animationFrame)
+  return { clear: () => cancelAnimationFrame(animationFrameId) }
 };
 
 export default observer;
