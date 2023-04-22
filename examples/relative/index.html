@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="./../../dist/main.js"></script>
+    <script src="./app.js"></script>
+    <style>
+      body {
+        min-height: 200vh;
+      }
+      #main {
+        margin-top: 40px;
+        display: flex;
+        overflow: scroll;
+        height: 300px;
+        background-color: #ddd;
+      }
+      .arrow {
+        pointer-events: none;
+      }
+      .arrow__path {
+        stroke: #000;
+        fill: transparent;
+        stroke-dasharray: 4 2;
+      }
+      .arrow__head line {
+        stroke: #000;
+        stroke-width: 1px;
+      }
+      .container {
+        position: relative;
+        width: 100%;
+        overflow-y: scroll;
+        height: 400px;
+      }
+      .container .el {
+        margin: 30px;
+        padding: 10px;
+        border: 1px solid black;
+      }
+      .container .el-1 {
+        margin-left: 600px;
+        height: 30px;
+        width: 60px;
+      }
+      .container .el-2 {
+        margin-top: 750px;
+        width: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <main id="main">
+      <div class="container">
+        <div class="el el-1">
+          El 1
+        </div>
+      </div>
+      <div class="container container-2">
+        <div class="el el-2">
+          El 2
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
