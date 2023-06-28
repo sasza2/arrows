@@ -3,7 +3,7 @@ import { Anchor } from '../anchor'
 import { Measure } from '../measure'
 
 const ATTRIBUTES_TO_COMPARE = ['x', 'y', 'width', 'height'];
-const DEFAULT_REFRESH_TIME = 150; // ms
+const DEFAULT_REFRESH_TIME = 0; // ms
 const INITIAL_MEASURES: MemoMeasures = { from: null, to: null };
 
 type MeasureAttribute = 'x' | 'y' | 'width' | 'height'
@@ -75,7 +75,7 @@ const observer: Observer = (from, to, { updateDelay = DEFAULT_REFRESH_TIME, upda
 
   let animationFrameId: number
 
-  const animationFrame = () => {
+  const animationFrame = () => {    
     checkMeasures()
     animationFrameId = requestAnimationFrame(animationFrame)
   }

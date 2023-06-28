@@ -41,7 +41,7 @@ export const Arrow = ({
       style={{
         top: arrow.offset.y,
         left: arrow.offset.x,
-        position: 'absolute',
+        position: 'fixed',
       }}
       width={arrow.size.width}
       height={arrow.size.height}

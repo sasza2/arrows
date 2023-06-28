@@ -159,7 +159,7 @@ test('<Arrow /> without direction', () => {
   );
 
   const svg = wrapper.baseElement.querySelector('svg');
-  expect(svg.outerHTML).toBe('<svg class="arrow" style="top: 160px; left: 200px; position: absolute;" width="230" height="250"><path class="arrow__path" d="M 10 10 C 54 130, 166 158, 210 230"></path><g class="arrow__head arrow__head--0" transform="rotate(58.556, 210, 230), translate(210, 230)"><g transform="translate(-10, 0)"><circle cx="0" cy="0" r="10"></circle></g></g></svg>');
+  expect(svg.outerHTML).toBe('<svg class="arrow" style="top: 160px; left: 200px; position: fixed;" width="230" height="250"><path class="arrow__path" d="M 10 10 C 54 130, 166 158, 210 230"></path><g class="arrow__head arrow__head--0" transform="rotate(58.556, 210, 230), translate(210, 230)"><g transform="translate(-10, 0)"><circle cx="0" cy="0" r="10"></circle></g></g></svg>');
 });
 
 test('<Arrow /> without direction, vertical', () => {
@@ -189,7 +189,7 @@ test('<Arrow /> without direction, vertical', () => {
   );
 
   const svg = wrapper.baseElement.querySelector('svg');
-  expect(svg.outerHTML).toBe('<svg class="arrow" style="top: 310px; left: 100px; position: absolute;" width="405" height="310"><path class="arrow__path" d="M 10 10 C 89 160, 306 200, 385 290"></path><g class="arrow__head arrow__head--0" transform="rotate(48.701, 385, 290), translate(385, 290)"><g transform="translate(-10, 0)"><circle cx="0" cy="0" r="10"></circle></g></g></svg>');
+  expect(svg.outerHTML).toBe('<svg class="arrow" style="top: 310px; left: 100px; position: fixed;" width="405" height="310"><path class="arrow__path" d="M 10 10 C 89 160, 306 200, 385 290"></path><g class="arrow__head arrow__head--0" transform="rotate(48.701, 385, 290), translate(385, 290)"><g transform="translate(-10, 0)"><circle cx="0" cy="0" r="10"></circle></g></g></svg>');
 });
 
 test('<Arrow /> without direction and translation', () => {
@@ -217,7 +217,7 @@ test('<Arrow /> without direction and translation', () => {
   );
 
   const svg = wrapper.baseElement.querySelector('svg');
-  expect(svg.outerHTML).toBe('<svg class="arrow" style="top: 310px; left: 100px; position: absolute;" width="405" height="310"><path class="arrow__path" d="M 10 10 C 10 100, 385 200, 385 290"></path><g class="arrow__head arrow__head--0" transform="rotate(90.012, 385, 290), translate(385, 290)"><g transform="translate(-10, 0)"><circle cx="0" cy="0" r="10"></circle></g></g></svg>');
+  expect(svg.outerHTML).toBe('<svg class="arrow" style="top: 310px; left: 100px; position: fixed;" width="405" height="310"><path class="arrow__path" d="M 10 10 C 10 100, 385 200, 385 290"></path><g class="arrow__head arrow__head--0" transform="rotate(90.012, 385, 290), translate(385, 290)"><g transform="translate(-10, 0)"><circle cx="0" cy="0" r="10"></circle></g></g></svg>');
 });
 
 test('<Arrow /> without translation', () => {
@@ -246,7 +246,7 @@ test('<Arrow /> without translation', () => {
     />,
   );
 
-  const expected = '<svg class="arrow" style="top: 310px; left: 100px; position: absolute;" width="405" height="650"><path class="arrow__path" d="M 10 10 C 10 202, 385 438, 385 630"></path><g class="arrow__head arrow__head--0" transform="rotate(90.012, 385, 630), translate(385, 630)"><g transform="translate(-10, 0)"><circle cx="0" cy="0" r="10"></circle></g></g></svg>'
+  const expected = '<svg class="arrow" style="top: 310px; left: 100px; position: fixed;" width="405" height="650"><path class="arrow__path" d="M 10 10 C 10 202, 385 438, 385 630"></path><g class="arrow__head arrow__head--0" transform="rotate(90.012, 385, 630), translate(385, 630)"><g transform="translate(-10, 0)"><circle cx="0" cy="0" r="10"></circle></g></g></svg>'
   const svg = wrapper.baseElement.querySelector('svg');
   expect(svg.outerHTML).toBe(expected);
 });
@@ -272,7 +272,7 @@ test('<Arrow /> from/to as HTMLElement', () => {
   );
 
   const svg = wrapper.baseElement.querySelector('svg');
-  expect(svg.outerHTML).toBe('<svg class="arrow" style="top: 310px; left: 100px; position: absolute;" width="405" height="310"><path class="arrow__path" d="M 10 10 C 10 100, 385 200, 385 290"></path><g class="arrow__head arrow__head--0" transform="rotate(90.012, 385, 290), translate(385, 290)"><g transform="translate(-10, 0)"><circle cx="0" cy="0" r="10"></circle></g></g></svg>');
+  expect(svg.outerHTML).toBe('<svg class="arrow" style="top: 310px; left: 100px; position: fixed;" width="405" height="310"><path class="arrow__path" d="M 10 10 C 10 100, 385 200, 385 290"></path><g class="arrow__head arrow__head--0" transform="rotate(90.012, 385, 290), translate(385, 290)"><g transform="translate(-10, 0)"><circle cx="0" cy="0" r="10"></circle></g></g></svg>');
 });
 
 test('<Arrow /> without from / to', () => {

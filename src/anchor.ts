@@ -1,5 +1,4 @@
 import nodeValue from './helpers/nodeValue';
-import { getScrollPoint } from './helpers/window';
 import { DIRECTION } from './consts';
 import { Point, PointArray } from './point'
 import { Size } from './size'
@@ -80,12 +79,7 @@ export const createAnchorWithPoint = (
   anchorParam: Anchor | HTMLElement | (() => HTMLElement)
 ): AnchorWithPoint => {
   const anchor = castToAnchor(anchorParam)
-
   const position: Point = getAnchorPoint(anchor);
-  const scroll = getScrollPoint();
-
-  position.x += scroll.x;
-  position.y += scroll.y;
 
   return {
     ...anchor,
