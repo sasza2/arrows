@@ -1,0 +1,35 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "ts:watch",
+			"group": "build",
+			"problemMatcher": [
+				"$tsc-watch"
+			],
+			"label": "npm: ts:watch",
+			"detail": "tsc -p ./ --watch"
+		},
+		{
+			"type": "npm",
+			"script": "ts:build",
+			"group": "build",
+			"problemMatcher": [
+				"$tsc"
+			],
+			"label": "npm: ts:build",
+			"detail": "tsc -p ./"
+		},
+		{
+			"type": "npm",
+			"script": "build",
+			"group": "build",
+			"problemMatcher": [
+				"$ts-webpack"
+			],
+			"label": "npm: build",
+			"detail": "webpack --mode=production"
+		}
+	]
+}
