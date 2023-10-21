@@ -1,4 +1,4 @@
-import createFakeElement from 'tests/createFakeElement'
+import createFakeElement from './tests/createFakeElement'
 import { Anchor, createAnchorWithPoint } from './anchor';
 import { DIRECTION } from './consts';
 
