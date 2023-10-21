@@ -3,12 +3,13 @@ Library for creating SVG arrow between two HTML elements. Positions of elements 
 
 ![Arrow](docs/arrow-1.png?raw=true "Arrow example")
 
-# Installation
+## Installation
 
 ```sh
 npm install arrows-svg
 ```
-# How to use it
+
+## How to use it
 
 https://codesandbox.io/s/brave-haslett-tlmz7
 
@@ -30,6 +31,7 @@ document.body.appendChild(arrow.node);
 Arrow could be also created with `window.arrowCreate()` function.
 
 ## CSS styles
+
 Styles should be added to make arrow visible. Feel free to change them.
 
 ```css
@@ -49,10 +51,12 @@ Styles should be added to make arrow visible. Feel free to change them.
 }
 ```
 
-### Example styles:
+### Example styles
+
 ![Arrow](docs/hello-world.png?raw=true "Arrow example")
 
-# API
+## API
+
 ```typescript
 arrowCreate(props: IArrowProps): IArrow
 ```
@@ -75,7 +79,8 @@ interface IArrow {
 
 `*` `clear()` - should be invoked to remove arrow.
 
-# Controlling arrow curve
+## Controlling arrow curve
+
 ```js
 import arrowCreate, { DIRECTION } from 'arrows-svg'
 
@@ -121,9 +126,12 @@ type Anchor = {
 
 `node` - if HTMLElement still doesn't exist in DOM, try to pass it as a function `() => node`.
 
-# Custom head
+## Controlling head
 
-### example with `diamond` head
+### Examples
+
+#### example with `diamond` head
+
 ```js
 import arrowCreate, { DIRECTION, HEAD } from 'arrows-svg'
 
@@ -137,7 +145,8 @@ document.body.appendChild(arrow.node);
 
 ___
 
-### example with `diamond` head and specified size
+#### example with `diamond` head and specified size
+
 ```js
 import arrowCreate, { DIRECTION, HEAD } from 'arrows-svg'
 
@@ -154,7 +163,7 @@ document.body.appendChild(arrow.node);
 
 ___
 
-### example with `image` head
+#### example with `image` head
 
 ```js
 import arrowCreate, { DIRECTION, HEAD } from 'arrows-svg'
@@ -174,7 +183,8 @@ document.body.appendChild(arrow.node);
 
 ___
 
-## Head types
+### Head types
+
 ![Head](docs/heads.png?raw=true "Head types")
 
 `*` Default head size is `10`<br />
@@ -184,7 +194,8 @@ ___
 
 ___
 
-## Custom head
+### Custom head
+
 ```js
 import arrowCreate, { DIRECTION, HEAD } from 'arrows-svg'
 
@@ -221,21 +232,24 @@ document.body.appendChild(arrow.node);
 `*` Return of custom head function always
 require a params like { `node`, `width`, `height` }
 
+## Building
 
-# Building
 ```sh
 npm run build
 ```
 
-# Development
+## Development
+
 ```sh
 npm run start
 ```
 
-# Testing
+## Testing
+
 ```sh
 npm run test
 ```
 
-# Examples
-in ./examples directory
+## Examples
+
+in [./examples](./examples) directory
