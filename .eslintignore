@@ -1,4 +1,5 @@
 coverage/*
 dist/*
 examples/*
+types/*
 webpack.config.js
