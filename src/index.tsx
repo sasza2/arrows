@@ -4,5 +4,6 @@ import arrowCreate from './arrowCreate'
 assignArrowCreate(window);
 
 export default arrowCreate;
+export { arrowCreate }
 export { DIRECTION } from './consts';
 export { HEAD } from './head';

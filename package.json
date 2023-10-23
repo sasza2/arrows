@@ -1,6 +1,6 @@
 {
   "name": "arrows-svg",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "SVG arrow between two HTML elements",
   "keywords": [
     "arrow",
@@ -8,9 +8,13 @@
     "svg"
   ],
   "main": "dist/main.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "build": "webpack --mode=production",
+    "build-dev": "webpack --mode=development",
     "start": "webpack --mode=development --watch",
+    "ts:watch": "tsc -p ./ --watch",
+    "ts:build": "tsc -p ./",
     "test": "jest --coverage",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --fix"
   },
@@ -46,10 +50,10 @@
     "husky": "^4.2.5",
     "jest": "^26.4.4",
     "ts-jest": "^26.4.4",
-    "ts-loader": "^8.0.11",
+    "ts-loader": "^9.5.0",
     "typescript": "^4.1.2",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
     "preact": "^10.5.7"

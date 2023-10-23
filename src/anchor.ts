@@ -15,7 +15,7 @@ export type AnchorWithPoint = Anchor & Point;
 
 const getAnchorPoint = (anchor: Anchor): Point => {
   const node: HTMLElement = nodeValue(anchor.node);
-  if (!node) throw new Error("point is null, check if 'from'/'to' exists");
+  if (!node) throw new Error("Point is null or not contained by the document body. Check if 'from'/'to' exists, was added to the DOM (and not removed since).");
 
   const rect: Point & Size = node.getBoundingClientRect();
   const x = rect.x || (rect as DOMRect).left;

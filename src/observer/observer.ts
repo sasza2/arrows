@@ -1,4 +1,4 @@
-import nodeValue from 'helpers/nodeValue';
+import nodeValue from '../helpers/nodeValue';
 import { Anchor } from '../anchor'
 import { Measure } from '../measure'
 
