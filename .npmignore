@@ -12,3 +12,5 @@ webpack.config.js
 /.vscode
 *.tgz
 /out
+/types/*.test.d.ts
+/types/tests/
