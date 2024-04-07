@@ -7,3 +7,4 @@ export default arrowCreate;
 export { arrowCreate }
 export { DIRECTION } from './consts';
 export { HEAD } from './head';
+export { IArrow, IArrowComponentProps, IArrowProps } from './interfaces/IArrow';
