@@ -1,5 +1,3 @@
-import { RefObject } from 'preact'
-
 import { Anchor } from '../anchor';
 import { HeadFactory, HeadFactoryList } from '../head';
 
@@ -21,6 +19,6 @@ export interface IArrowComponentProps {
   head?: HeadFactory | HeadFactoryList,
   from: Anchor,
   to: Anchor,
-  forwardRef?: RefObject<SVGSVGElement>,
+  forwardRef?: { current: SVGSVGElement | null },
   updateDelay?: number,
 }
